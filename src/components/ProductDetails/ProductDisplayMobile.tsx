@@ -1,4 +1,4 @@
-import { SingleMakeupProductType } from "@/utils/types"
+import { CombinedSingleProductType } from "@/utils/types"
 import Image from "next/image"
 import { useState } from "react";
 import SvgGift from "../SVG/Gift";
@@ -6,8 +6,11 @@ import SvgSeparator from "../SVG/Separator";
 import SvgAdvice from "../SVG/Advice";
 import { TbCurrencyDollar } from "react-icons/tb";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
+import { useCart } from "@/store/store";
 
-const ProductDisplayMobile = ({ product }: { product: SingleMakeupProductType}) => {
+const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}) => {
+
+  const addtoCart = useCart((state) => state.addToCart);
 
   const [largeImage, setLargeImage] = useState<string>();
   const [isSelected, setIsSelected] = useState<string>();
@@ -76,7 +79,7 @@ const ProductDisplayMobile = ({ product }: { product: SingleMakeupProductType}) 
 
       {/* Add to cart button starts */}
       <button 
-        // onClick={() => addtoCart({...product, quantity: 1, onQuantityPrice: product?.attributes?.price})}
+        onClick={() => addtoCart({...product, quantity: 1, onQuantityPrice: product?.price})}
         className="w-full h-[45px] px-4 py-2 mt-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out"
         >
         <div className="w-8 h-8 relative text-white flex items-center justify-center">

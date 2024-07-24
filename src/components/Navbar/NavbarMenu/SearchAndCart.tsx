@@ -1,10 +1,13 @@
+"use client"
+import { useCart } from "@/store/store";
 import Link from "next/link";
 import { GrLanguage } from "react-icons/gr";
 import { MdOutlineSearch } from "react-icons/md";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 
 const SearchAndCart = () => {
-  const itemsCart = [];
+  const itemsCart = useCart((state) => state.cartItems);
+  const totalCartItems = itemsCart.reduce((total, item) => total + item.quantity, 0) 
 
   return (
     <div className="flex items-center justify-center p-2 mt-[20px]">
@@ -32,7 +35,7 @@ const SearchAndCart = () => {
         className="flex justify-center items-center p-2 gap-1 cursor-pointer relative"
       >
         <div className="bg-pink-900 rounded-full h-5 w-5 flex justify-center items-center absolute -top-[5px] right-[4px]">
-          <span className="text-white bg-transparent">{itemsCart?.length}</span>
+          <span className="text-white bg-transparent">{totalCartItems}</span>
         </div>
         <PiShoppingCartSimpleBold className="w-6 h-6" />
       </Link>

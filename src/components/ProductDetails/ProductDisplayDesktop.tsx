@@ -7,9 +7,13 @@ import Image from "next/image"
 import SvgSeparator from "../SVG/Separator";
 import SvgGift from "../SVG/Gift";
 import SvgAdvice from "../SVG/Advice";
+import { useCart } from "@/store/store";
+
 
 const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType}) => {
-    
+  
+  const addtoCart = useCart((state) => state.addToCart);
+
   const [largeImage, setLargeImage] = useState<string>();
   const [isSelected, setIsSelected] = useState<string>();
   const [showBranchesStock, setShowBranchesStock] = useState<boolean>(false)
@@ -93,7 +97,7 @@ const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType
         </div>
         <div className='flex items-center justify-between space-x-2 mt-8'>
           <button 
-            // onClick={() => addtoCart({...product, quantity: 1, onQuantityPrice: product?.attributes?.price})}
+            onClick={() => addtoCart({...product, quantity: 1, onQuantityPrice: product?.price})}
             className="w-[48%] h-[45px] px-4 py-2 bg-pink-900 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out"
             >
             <div className="w-8 h-8 relative text-white flex items-center justify-center">

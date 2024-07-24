@@ -10,10 +10,15 @@ import { GrLanguage } from "react-icons/gr"
 import { PiShoppingCartSimpleBold } from "react-icons/pi"
 import Link from "next/link"
 import MobileMenu from "./NavbarMenu/MenuMobile/MobileMenu"
+import { useCart } from "@/store/store"
 // import { useCart } from '@/store/store';
 
 
 const NavbarMobile = () => {
+
+  const itemsCart = useCart((state) => state.cartItems);
+  const totalCartItems = itemsCart.reduce((total, item) => total + item.quantity, 0) 
+
   const [isDropDown, setIsDropDown] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isSuggestionOpen, setIsSuggestionOpen] = useState<boolean>(false);
@@ -67,7 +72,7 @@ const NavbarMobile = () => {
           <div className='inline-flex justify-center items-center p-2 gap-1 cursor-pointer relative'>
             <Link href={"/cart"}>
               <div className='bg-pink-900 rounded-full h-[14px] w-[14px] flex justify-center items-center absolute top-[0px] right-[4px]'>
-                <span className='text-white text-xs'>{0}</span>
+                <span className='text-white text-xs'>{totalCartItems}</span>
               </div>
               <PiShoppingCartSimpleBold className="w-4 h-4"/>
             </Link>

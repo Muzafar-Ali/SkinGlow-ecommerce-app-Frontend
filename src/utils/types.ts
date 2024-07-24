@@ -208,3 +208,8 @@ export type CombinedSingleProductType = {
   __v: number;
   _id: string;
 }
+
+export type CartProductType = CombinedSingleProductType & {
+  quantity: number;
+  onQuantityPrice: number;
+}
