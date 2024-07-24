@@ -18,7 +18,7 @@ const EyesFilter = ({ eyeCategories, eyesFilters, handleMakeupFiltersChange }: E
         onClick={() => setIsDropDown((prev) => !prev)}
       >
         <h2 className="w-full text-pink-800 text-base font-bold capitalize leading-snug">eyes</h2>
-        <div className={`${isDropDown ? 'rotate-180':'rotate-0'} flex justify-center items-center text-pink-800 transition-transform duration-500 ease-in-out`}>
+        <div className={`${isDropDown ? 'rotate-0':'rotate-180'} flex justify-center items-center text-pink-800 transition-transform duration-500 ease-in-out`}>
           <AiFillCaretDown className={`w-4 h-4`}/>
         </div>
       </div>

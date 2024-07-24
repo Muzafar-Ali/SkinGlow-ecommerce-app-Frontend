@@ -1,13 +1,13 @@
 import Link from "next/link";
 import ProductCard from "../ProductCard";
-import { MakeupProductType } from "@/utils/types";
+import { skinCareProductType } from "@/utils/types";
 
-const MakeupProducts = ({ products }: {products: MakeupProductType[]}) => {
+const SkincareProduct = ({ products }: {products: skinCareProductType[]}) => {
   return (
     <div className="w-[1132px]">
       <section className="grid grid-cols-2 tablet-s:grid-cols-3 laptop-m:grid-cols-4 gap-[24px]">
         {products?.map((product) => (
-          <Link href={`/product-makeup/${product?.slug}`} key={product?._id}>
+          <Link href={`/product-skincare/${product?.slug}`} key={product?._id}>
             <div>
               <ProductCard product={product} />
             </div>
@@ -18,4 +18,4 @@ const MakeupProducts = ({ products }: {products: MakeupProductType[]}) => {
   );
 };
 
-export default MakeupProducts;
+export default SkincareProduct;

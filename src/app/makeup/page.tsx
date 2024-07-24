@@ -34,7 +34,7 @@ const MakeupProductPage = () => {
   const [featuredFilters, setFeaturedFilters] = useState<string[]>([])
   const [makeupPriceFilters, setMakeupPriceFilters] = useState<string[]>([])
   
-  // when user slects category in navigation bar, this function segreates category and auto selects and save in 
+  // when user selects category in navigation bar, this function segreates category and auto selects and save in 
   // particular category for further filter
   // useEffect(() => {
 

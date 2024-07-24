@@ -1,14 +1,15 @@
+"use client"
 import { CategoryType } from '@/utils/types';
 import React, { useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai';
 
 type FeaturedFilterProps = {
-  featuredCategories: CategoryType[]
+  featuredCategories: CategoryType[] 
   featuredFilters: string[];
-  handleMakeupFiltersChange: (filetrTyp: string, value: string) => void;
+  handleSkincareFiltersChange: (filetrTyp: string, value: string) => void;
 }
 
-const FeaturedFilterMakeup = ({ featuredCategories, featuredFilters, handleMakeupFiltersChange }: FeaturedFilterProps) => {
+const FeaturedFilter:React.FC<FeaturedFilterProps> = ({ featuredCategories, featuredFilters, handleSkincareFiltersChange}: FeaturedFilterProps) => {
 
   const [isDropDown, setIsDropDown] = useState<boolean>(true)
 
@@ -17,9 +18,9 @@ const FeaturedFilterMakeup = ({ featuredCategories, featuredFilters, handleMakeu
       <div className='inline-flex justify-between items-center w-full cursor-pointer bg-white '
         onClick={() => setIsDropDown((prev) => !prev)}
       >
-        <h2 className="w-full text-pink-800 text-base font-bold capitalize leading-snug">featured</h2>
-        <div className={`${isDropDown ? 'rotate-0':'rotate-180'} flex justify-center items-center text-pink-800 transition-transform duration-500 ease-in-out`}>
-          <AiFillCaretDown className={`w-4 h-4`}/>
+        <h2 className="w-full text-pink-800 text-base font-bold capitalize leading-snug bg-transparent">Featured</h2>
+        <div className={`${isDropDown ? 'rotate-0':'rotate-180'} flex justify-center items-center text-pink-800 transition-transform duration-500 ease-in-out bg-transparent`}>
+          <AiFillCaretDown className={`w-4 h-4 bg-transparent`}/>
         </div>
       </div>
 
@@ -31,7 +32,7 @@ const FeaturedFilterMakeup = ({ featuredCategories, featuredFilters, handleMakeu
           >
             <div 
               className={`${featuredFilters?.includes((item?._id.toLowerCase()).split(' ').join('-')) ? "bg-neutral-950 ring-2 ring-white ring-inset":"bg-white"} w-4 h-4 border-2 hover:scale-125 border-neutral-950 rounded-sm cursor-pointer`}
-              onClick={() => handleMakeupFiltersChange('featured',(item?._id.toLowerCase()).split(' ').join('-'))}
+              onClick={() => handleSkincareFiltersChange('featured', (item?._id.toLowerCase()).split(' ').join('-'))}
             />
             <div className="text-neutral-950 text-sm font-normal capitalize leading-[25.20px] bg-white">{ item.name }</div>
           </div>
@@ -41,4 +42,4 @@ const FeaturedFilterMakeup = ({ featuredCategories, featuredFilters, handleMakeu
   )
 }
 
-export default FeaturedFilterMakeup
+export default FeaturedFilter

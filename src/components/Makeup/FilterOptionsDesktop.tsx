@@ -22,7 +22,8 @@ type FilterOptionsDesktopProps = {
   handleMakeupFiltersChange: (filterType: string, filtersValue: string) => void;
 }
 
-const FilterOptionsDesktop = ({
+const FilterOptionsDesktop = (
+  {
   cheekCategories, 
   lipCategories, 
   eyeCategories, 
@@ -37,8 +38,7 @@ const FilterOptionsDesktop = ({
   clearFilters, 
   handleMakeupFiltersChange
 
-}: FilterOptionsDesktopProps) => {
-
+  }: FilterOptionsDesktopProps) => {
 
   return (
     <div className='hidden laptop-s:flex flex-col w-[288px]'>
