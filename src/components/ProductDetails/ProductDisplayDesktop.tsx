@@ -22,8 +22,8 @@ const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType
       setCategory(product?.categories?.makeup?.eyesMakeupCategory.name);
     } else if (product?.categories?.makeup?.lipsMakeupCategory?.name) {
       setCategory(product?.categories?.makeup?.lipsMakeupCategory.name);
-    } else if (product?.categories?.skincare.skinCareCategory?.name) {
-      setCategory(product?.categories?.skincare.skinCareCategory?.name);
+    } else if (product?.categories?.skincare?.skinCareCategory?.name) {
+      setCategory(product?.categories?.skincare?.skinCareCategory?.name);
     }
   },[])
 

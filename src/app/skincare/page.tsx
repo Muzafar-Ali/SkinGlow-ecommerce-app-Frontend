@@ -159,17 +159,17 @@ const WomenSkinCare = () => {
   useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategories)
 
   // function to display products based on filter Selection
-  const filteredProducts: skinCareProductType[] = products
-  // const filteredProducts: skinCareProductType[] = filterOutProductsSkincare(
-  //   appliedFilters, 
-  //   products, 
-  //   isOutOfStock, 
-  //   displaySortFilterValue,
-  //   skincareCategoryFilters,
-  //   skinConditionFilters,
-  //   featuredFilters,
-  //   skincarePriceFilters,
-  // )
+  // const filteredProducts: skinCareProductType[] = products
+  const filteredProducts: skinCareProductType[] = filterOutProductsSkincare(
+    appliedFilters, 
+    products, 
+    isOutOfStock, 
+    displaySortFilterValue,
+    skincareCategoryFilters,
+    skinConditionFilters,
+    featuredFilters,
+    skincarePriceFilters,
+  )
 
   // // function to display products based on filter Selection
   // const filteredProducts: ProductsType2[] = filterOutProductsSkincare(

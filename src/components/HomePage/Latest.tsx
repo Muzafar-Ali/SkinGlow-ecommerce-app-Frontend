@@ -1,18 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
-import { bestSellerType } from "@/utils/types";
 import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
+import { useEffect, useState } from "react";
+import { BestSellerType } from "@/utils/types";
+import { createURL } from "@/utils/helpers/createURL";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Wrapper from "../Wrapper";
+
 
 const Latest = () => {
   const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
 
-  const [latest, setLatest] = useState<bestSellerType[]>([]);
+  const [latest, setLatest] = useState<BestSellerType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   
   const responsive = {
@@ -88,7 +89,7 @@ const Latest = () => {
         customButtonGroup={<ButtonGroup />}
       >
         {latest?.map((product) => (
-          <Link href={`/product/${product?.slug}`} key={product?._id}>
+          <Link href={createURL(product)} key={product?._id}>
             <ProductCard product={product} />
           </Link>
         ))}

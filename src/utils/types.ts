@@ -6,7 +6,7 @@ export type CategoryType = {
   __v: number;
 };
 
-export type skinCareProductType = {
+export type SkinCareProductType = {
     _id: string;
     title: string;
     slug: string;
@@ -21,15 +21,17 @@ export type skinCareProductType = {
         features: string;
     };
   categories: {
-    skinCareCategory?: {
-      _id: string;
-    };
-    skinConditionCategory?: {
-      _id: string;
-    };
-    featuredCategory?: {
-      _id: string;
-    };
+    skincare: {
+      skinCareCategory?: {
+        _id: string;
+      };
+      skinConditionCategory?: {
+        _id: string;
+      };
+      featuredCategory?: {
+        _id: string;
+      };
+    }
   };
   createdAt: string;
   updatedAt: string;
@@ -73,7 +75,7 @@ export type MakeupProductType = {
   _id: string;
 } 
 
-export type bestSellerType = skinCareProductType & MakeupProductType;
+export type BestSellerType = SkinCareProductType & MakeupProductType;
 
 // export type SingleMakeupProductType = {
 //   title: string;
@@ -182,21 +184,21 @@ export type CombinedSingleProductType = {
         name: string;
         slug: string;
         __v: number;
-        products: skinCareProductType[];
+        products: SkinCareProductType[];
       },
       skinConditionCategory?: {
         _id: string;
         name: string;
         slug: string;
         __v: number;
-        products: skinCareProductType[];
+        products: SkinCareProductType[];
       },
       featuredCategory?: {
         _id: string
         name: string;
         slug: string;
         __v: number;
-        products: skinCareProductType[];
+        products: SkinCareProductType[];
       }
     }
   }

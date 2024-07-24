@@ -1,9 +1,9 @@
-import SortFilters from "@/components/Skincare/SkincareFilterOptions/SortFilters";
-import { ProductsType2 } from "./types/types";
+import { skinCareProductType } from "../types";
+
 
 export const filterOutProductsSkincare = (
     appliedFilters: string[], 
-    products: ProductsType2[], 
+    products: skinCareProductType[], 
     isOutOfStock?: boolean, 
     displaySortFilterValue?:string, 
     categoryFilters?: string[],
@@ -11,14 +11,21 @@ export const filterOutProductsSkincare = (
     featuredFilters?: string[],
     priceFilters?: string[],
     categoryWords?: string[],
-    ): ProductsType2[] =>  {
-    
+  ): skinCareProductType[] =>  {
+   
     let filteredProducts = products?.filter((product) => {
-      const skinCategories = product?.attributes?.skincare_categories?.data;
-      const skinCondition = product?.attributes?.skincondition_categories?.data;
-      const marketingCategories = product?.attributes?.marketing_categories?.data;
-      const productPrice = product?.attributes?.price;
-      const productTitle = product.attributes.title.toLowerCase();
+
+      const skinCategory = product?.categories?.skincare?.skinCareCategory;
+      let skinCategories = [skinCategory]
+
+      const skinConditionCategory = product?.categories?.skincare?.skinConditionCategory;
+      let skinConditionCategories = [skinConditionCategory]
+      
+      const featuredCategory = product?.categories?.skincare?.featuredCategory;
+      let featuredCategories = [featuredCategory]
+      
+      const productPrice = product?.price;
+      const productTitle = product.title.toLowerCase();
 
       if (categoryWords && categoryWords.length > 1 && !categoryWords.some((categoryWord) => {
         return productTitle.includes(categoryWord);
@@ -27,29 +34,29 @@ export const filterOutProductsSkincare = (
       }
 
       if ( categoryFilters && categoryFilters.length > 0 && !skinCategories?.some((category) => {
-        const categoryTitle = category.attributes.slug;        
+        const categoryTitle = category;        
         return categoryFilters.includes(categoryTitle);
       })) {
         return false;
       }
 
-      if (skinConditionFilters && skinConditionFilters.length > 0 && !skinCondition?.some((category) => {
-        const skinConditionTitle = category.attributes.slug;
+      if (skinConditionFilters && skinConditionFilters.length > 0 && !skinConditionCategories?.some((category) => {
+        const skinConditionTitle = category;
         return skinConditionFilters.includes(skinConditionTitle);
       })){
         return false;
       }
 
-      if (featuredFilters && featuredFilters.length > 0 && !marketingCategories?.some((category) => {
-        const marketingCategoryTitle = category.attributes.slug;
+      if (featuredFilters && featuredFilters.length > 0 && !featuredCategories?.some((category) => {
+        const marketingCategoryTitle = category;
         return featuredFilters.includes(marketingCategoryTitle);
       })){
         return false;
       }
       
-      if (displaySortFilterValue === 'latest arrival' && !marketingCategories?.some((category) => {
-        const marketingCategoryTitle = category.attributes.slug;
-        return marketingCategoryTitle === 'new';
+      if (displaySortFilterValue === 'latest arrival' && !featuredCategories?.some((category) => {
+        const featuredCategoryId = category;
+        return featuredCategoryId === '6692f5b5912b28665afef6fd';
       })){
         return false;
       }
@@ -93,9 +100,9 @@ export const filterOutProductsSkincare = (
   
     // Sort products based on price if displaySortFilterValue is selected
     if (displaySortFilterValue === 'price high to low') {
-      filteredProducts = filteredProducts.sort((a: any, b: any) => b.attributes.price - a.attributes.price);
+      filteredProducts = filteredProducts.sort((a: any, b: any) => b.price - a.price);
     } else if (displaySortFilterValue === 'price low to high') {
-      filteredProducts = filteredProducts.sort((a: any, b: any) => a.attributes.price - b.attributes.price);
+      filteredProducts = filteredProducts.sort((a: any, b: any) => a.price - b.price);
     }
     
   
