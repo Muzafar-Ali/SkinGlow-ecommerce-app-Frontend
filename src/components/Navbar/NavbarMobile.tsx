@@ -25,8 +25,6 @@ const NavbarMobile = () => {
   const [searchInputValue, setSearchInputValue] = useState<string>('');
   const [isLanguageLocationOpen, setIsLanguageLocationOpen] = useState<boolean>(false)
 
-  // const itemsCart = useCart((state) => state.cartItems);
-
   return (
     <div>
       <div className='laptop-s:hidden h-[64px] flex flex-row items-center justify-between border-b border-neutral-200 px-[20px] w-full max-w-[1440px] mx-auto relative'>
@@ -81,10 +79,10 @@ const NavbarMobile = () => {
       </div>
 
       {/* Menu */}
-      {/* <MobileMenu
+      <MobileMenu
         isDropDown={isDropDown}
         setIsDropDown={setIsDropDown}
-      /> */}
+      />
               
     </div>
   )

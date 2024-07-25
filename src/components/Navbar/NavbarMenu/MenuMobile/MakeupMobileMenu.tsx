@@ -1,40 +1,45 @@
-'use client'
+"use client"
+import { useFetchCategories } from '@/hooks/useFetchCategories';
+import { CategoryType } from '@/utils/types';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai';
 
 type MakeUpMobileMenuProps = {
-  isMakeupAll: boolean;
-  setIsMakeupAll: React.Dispatch<React.SetStateAction<boolean>>;
   isLips: boolean;
-  setIsLips: React.Dispatch<React.SetStateAction<boolean>>;
   isCheek: boolean;
-  setIsCheek: React.Dispatch<React.SetStateAction<boolean>>;
   isEye: boolean;
-  setIsEye: React.Dispatch<React.SetStateAction<boolean>>;
   isSelected: string[];
+  setIsLips: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCheek: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEye: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSelected: React.Dispatch<React.SetStateAction<string[]>>
-  isMakeupCategoryOpen: boolean;
-  setIsMakeupCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDropDown: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 const MakeUpMobileMenu = ({ 
-  isMakeupAll,
-  setIsMakeupAll,
-  isLips,
-  setIsLips,
-  isCheek,
-  setIsCheek,
-  isEye,
-  setIsEye,
-  isMakeupCategoryOpen,
-  setIsMakeupCategoryOpen,
-  isSelected, 
-  setIsSelected,
-  setIsDropDown
+isSelected,
+setIsDropDown,
+setIsCheek,
+isCheek,
+setIsLips,
+isLips,
+setIsEye,
+isEye,
 }: MakeUpMobileMenuProps) => {
+
+  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
+
+  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);
+  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
+  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
+  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
+  
+  useFetchCategories(`${BASEURL}/v1/makeup/category/lips/all`, setLipCategory);
+  useFetchCategories(`${BASEURL}/v1/makeup/category/eyes/all`, setEyeCategory);
+  useFetchCategories(`${BASEURL}/v1/makeup/category/cheek/all`, setCheekCategory)
+  useFetchCategories(`${BASEURL}/v1/makeup/category/featured/all`, setFeaturedCategory)
   
   return (
     <div className={`${isSelected?.includes(('women makeup')) ? 'inline-block':'hidden'}`}>
@@ -57,13 +62,13 @@ const MakeUpMobileMenu = ({
           <AiOutlineCaretRight className={`${isCheek ? "rotate-90": ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { cheek?.map((item, index) => (
+          { cheekCategory?.map((item, index) => (
             <div 
             key={index}
             onClick={() => setIsDropDown(false)}
             className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isCheek ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/makeup/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -78,13 +83,13 @@ const MakeUpMobileMenu = ({
           <AiOutlineCaretRight className={`${isLips? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { lips?.map((item, index) => (
+          { lipCategory?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)}
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isLips ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/makeup/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -99,13 +104,13 @@ const MakeUpMobileMenu = ({
           <AiOutlineCaretRight className={`${isEye ? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { eyes?.map((item, index) => (
+          { eyeCategory?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)}
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isEye ? 'inline-flex':'hidden'} transition-all duration-500 ease-in-out`}
             >
-              <Link href={`/makeup/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -114,13 +119,13 @@ const MakeUpMobileMenu = ({
       
       {/* featured categories starts */}
       <div>
-        { featuredMakeup?.map((item, index) => (
+        { featuredCategory?.map((item, index) => (
           <div 
           key={index}
             onClick={() => setIsDropDown(false)}
             className={`pl-10 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full inline-flex transition-all duration-500 ease-in-out`}
           >
-            <Link href={`/makeup/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent">{item}</Link>
+            <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent">{item.name}</Link>
           </div> 
         ))}
       </div>

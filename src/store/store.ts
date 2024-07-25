@@ -83,6 +83,56 @@ export const useFilterSelection = create<FilterSelection>((set) => ({
 
 }));
 
+type CategpriesType = {
+  cheek: string[];
+  eye: string[];
+  lip: string[];
+  skincare: string[];
+  skinCondition: string[];
+  addCheek: (cheek: string[]) => void;
+  addEye: (eye: string[]) => void;
+  addLip: (lip: string[]) => void;
+  addSkincare: (skincare: string[]) => void;
+  addSkinCondition: (skinCondition: string[]) => void;
+}
+export const useMenuCategories = create<CategpriesType>((set) => ({
+  cheek: [],
+  eye: [],
+  lip: [],
+  skincare: [],
+  skinCondition: [],
+
+  addCheek: (cheek: string[]) => {
+    set((state) => {
+      return { ...state, cheek: [...state.cheek, ...cheek] }; // Correctly spread both arrays
+    });
+  },
+  
+
+  addEye: (eye: string[]) => {
+    set((state) => {
+      return { ...state, eye: [...state.eye, ...eye] }; // Correctly spread both arrays
+    });
+  },
+
+  addLip: (lip: string[]) => {
+    set((state) => {
+      return { ...state, lip: [...state.lip, ...lip] };
+    });
+  },
+
+  addSkincare: (skincare: string[]) => {
+    set((state) => {
+      return {...state, skincare: [...state.skincare, ...skincare] };
+    });
+  },
+
+  addSkinCondition: (skinCondition: string[]) => {
+    set((state) => {
+      return {...state, skinCondition: [...state.skinCondition, ...skinCondition] };
+    });
+  },
+})); 
 
 
 

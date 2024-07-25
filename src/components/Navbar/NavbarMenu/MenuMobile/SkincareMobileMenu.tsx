@@ -1,17 +1,18 @@
-import { category, collection, featured, skin_condition } from '@/lib/data/filterCategories'
-import Link from 'next/link'
-import React, { FC, useState } from 'react'
+import { useFetchCategories } from '@/hooks/useFetchCategories'
+import { CategoryType, SkinCareProductType } from '@/utils/types'
+import { FC, useEffect, useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai'
+import Link from 'next/link'
 
 
 type SkincareMobileMenuProps = { 
   isSelected: string[],
-  setIsSelected: React.Dispatch<React.SetStateAction<string[]>> 
   isCategoryOpen: boolean,
-  setIsCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>,
   isSkinConditionCategoryOpen: boolean,
-  setIsSkinConditionCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>,
   isCollectionOpen: boolean,
+  setIsSelected: React.Dispatch<React.SetStateAction<string[]>> 
+  setIsCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsSkinConditionCategoryOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setIsCollectionOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setIsDropDown: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -27,7 +28,35 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
   setIsCollectionOpen,
   setIsDropDown
 }) => {
+  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
+
+  const [skincareCategory, setSkincareCategory] = useState<CategoryType[]>([]);
+  const [skinConditionCategory, setskinConditionCategory] = useState<CategoryType[]>([]);
+  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
+  const [collection, setCollection] = useState<SkinCareProductType[]>([]);
   
+  useFetchCategories(`${BASEURL}/v1/skincare/category/skincare/all`, setSkincareCategory);
+  useFetchCategories(`${BASEURL}/v1/skincare/category/skincondition/all`, setskinConditionCategory);
+  useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategory);
+
+  useEffect(() => {
+    const getCollection = async () => {
+      try {
+        const response = await fetch(`${BASEURL}/v1/skincare/collection`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setCollection(data.products);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getCollection();
+  }, []);
+
   return (
     <div className={`${isSelected?.includes(('Women Skincare')) ? 'inline-block':'hidden'}`}>
       <div>
@@ -49,13 +78,13 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
           <AiOutlineCaretRight className={`${isSkinConditionCategoryOpen ? "rotate-90": ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { skin_condition.map((item, index) => (
+          { skinConditionCategory.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)} 
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isSkinConditionCategoryOpen ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/skincare/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+              <Link href={`/skincare/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -70,13 +99,13 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
           <AiOutlineCaretRight className={`${isCategoryOpen ? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { category?.map((item, index) => (
+          { skincareCategory?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)} 
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isCategoryOpen ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/skincare/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+              <Link href={`/skincare/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -93,12 +122,13 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
         <div>
           { collection?.map((item, index) => (
             <Link
-              href={`/skincare/${encodeURIComponent(item.toLowerCase())}`}
+              href={`/skincare/${item.slug}`}
+              // href={`/skincare/${encodeURIComponent(item.toLowerCase())}`}
               key={index}
               onClick={() => setIsDropDown(false)}  
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isCollectionOpen? 'inline-flex':'hidden'} transition-all duration-500 ease-in-out`}
             >
-              <div className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</div>
+              <div className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.title}</div>
             </Link> 
           ))}
         </div>
@@ -107,13 +137,13 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
 
       {/* featured categories starts */}
       <div>
-        { featured?.map((item, index) => (
+        { featuredCategory?.map((item, index) => (
           <div 
             key={index}
             onClick={() => setIsDropDown(false)} 
             className={`pl-10 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full inline-flex transition-all duration-500 ease-in-out`}
           >
-            <Link href={`/skincare/${item}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item}</Link>
+            <Link href={`/skincare/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
           </div> 
         ))}
       </div>

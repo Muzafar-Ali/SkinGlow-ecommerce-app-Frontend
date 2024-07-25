@@ -1,11 +1,10 @@
 "use client"
-import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { cn } from '@/lib/utils';
-import { CategoryType, skinCareProductType } from '@/utils/types';
-// import { category, collection, featured, skin_condition } from '@/lib/data/filterCategories';
+import { useFetchCategories } from '@/hooks/useFetchCategories';
+import { CategoryType, SkinCareProductType } from '@/utils/types';
+import { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
 
 type SkincareDesktopMenuProps = {
   dropdownStates: boolean[]
@@ -18,7 +17,7 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
   const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [skinCareCategory, setSkinCareCategory] = useState<CategoryType[]>([]);
   const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);
-  const [collection, setCollection] = useState<skinCareProductType[]>([]);
+  const [collection, setCollection] = useState<SkinCareProductType[]>([]);
   
   const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
   
