@@ -1,18 +1,15 @@
 'use client'
 import { IoMdMenu } from "react-icons/io"
-import Wrapper from "../Wrapper"
 import { AiOutlineClose } from "react-icons/ai"
 import { MdOutlineSearch } from "react-icons/md"
 import { useState } from "react"
-import Logo from "./Logo"
 import { GrLanguage } from "react-icons/gr"
-
 import { PiShoppingCartSimpleBold } from "react-icons/pi"
+import { useCart } from "@/store/store"
+import Logo from "./Logo"
 import Link from "next/link"
 import MobileMenu from "./NavbarMenu/MenuMobile/MobileMenu"
-import { useCart } from "@/store/store"
-// import { useCart } from '@/store/store';
-
+import Search from "../Search/Search"
 
 const NavbarMobile = () => {
 
@@ -22,7 +19,6 @@ const NavbarMobile = () => {
   const [isDropDown, setIsDropDown] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isSuggestionOpen, setIsSuggestionOpen] = useState<boolean>(false);
-  const [searchInputValue, setSearchInputValue] = useState<string>('');
   const [isLanguageLocationOpen, setIsLanguageLocationOpen] = useState<boolean>(false)
 
   return (
@@ -57,7 +53,7 @@ const NavbarMobile = () => {
           <Logo/>
         </div>
 
-        {/* Language & Cart */}
+        {/* locale */}
         <div className='inline-flex justify-between items-center gap-1 mt-[35px] mb-[12.5px] cursor-pointer'>
           <div 
             onClick={() => setIsLanguageLocationOpen(true)}
@@ -67,6 +63,7 @@ const NavbarMobile = () => {
             <span className='text-neutral-950 text-sm font-normal capitalize leading-none'>US <span className='text-zinc-600 text-[10px] font-semibold capitalize leading-[14px]'>(ENG)</span></span>
           </div>
           
+          {/* shopping cart */}
           <div className='inline-flex justify-center items-center p-2 gap-1 cursor-pointer relative'>
             <Link href={"/cart"}>
               <div className='bg-pink-900 rounded-full h-[14px] w-[14px] flex justify-center items-center absolute top-[0px] right-[4px]'>
@@ -82,6 +79,11 @@ const NavbarMobile = () => {
       <MobileMenu
         isDropDown={isDropDown}
         setIsDropDown={setIsDropDown}
+      />
+      {/* Search */}
+      <Search
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
       />
               
     </div>

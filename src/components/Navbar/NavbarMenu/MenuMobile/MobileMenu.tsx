@@ -37,7 +37,7 @@ const MobileMenu = ({ isDropDown, setIsDropDown}: MobileMenuProps) => {
   }
   
   return (
-    <div className={`${ isDropDown ? 'opacity-100 translate-y-0 z-10 ':'opacity-0 -translate-y-3 -z-10 '} transition-all duration-500 ease-in-out absolute top-[64px] w-full h-screen  bg-background_custom flex flex-col laptop-s:hidden`}>
+    <div className={`${ isDropDown ? 'opacity-100 translate-y-0 z-10 ':'opacity-0 -translate-y-3 -z-10 '} transition-all duration-500 ease-in-out absolute top-[74px] w-full h-screen  bg-background_custom flex flex-col px-[20px] laptop-s:hidden`}>
       
       <div className={`${isSelected?.length > 0 ? 'inline-block':'hidden'} inline-flex items-center space-x-[4px] py-[16px] px-[8px] bg-background_custom`}>
         <MdOutlineArrowBackIos className="w-6 h-6"
@@ -55,7 +55,7 @@ const MobileMenu = ({ isDropDown, setIsDropDown}: MobileMenuProps) => {
       >
         <div
           onClick={() => handleClick('women makeup')}
-          className="grow shrink basis-0 bg-white  text-neutral-950 text-sm font-semibold leading-tight"
+          className="grow shrink basis-0 bg-white text-neutral-950 text-sm font-semibold leading-tight"
         >
           women makeup
         </div>

@@ -213,3 +213,33 @@ export type CartProductType = CombinedSingleProductType & {
   quantity: number;
   onQuantityPrice: number;
 }
+
+// Define the type for a single search result item
+interface ProductDetails {
+  description: string;
+  ingredients: string;
+  howToApply: string;
+  features: string;
+}
+
+export interface Product {
+  objectID: string;
+  categories?: { [key: string]: any }; // Optional, adjust if not always present
+  createdAt?: string;                  // Optional
+  images?: string[];                   // Optional
+  price?: number;                      // Optional
+  productDetails?: ProductDetails;    // Optional
+  slug?: string;                      // Optional
+  stock?: number;                     // Optional
+  tagline?: string;                   // Optional
+  thumbnail?: string;                // Optional
+  title?: string;                    // Optional
+  updatedAt?: string;                // Optional
+  _highlightResult?: any;            // Optional, adjust based on actual response
+  _snippetResult?: any;              // Optional, adjust based on actual response
+  _rankingInfo?: any;                // Optional, adjust based on actual response
+  _distinctSeqID?: number;           // Optional, adjust based on actual response
+}
+
+// Define the type for the array of search results
+export type SearchProductType = Product[];
