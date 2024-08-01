@@ -1,7 +1,7 @@
 "use client"
 import { CategoryType } from '@/utils/types';
-import React, { useState } from 'react'
-import { AiOutlineCaretRight, AiFillCaretDown } from 'react-icons/ai';
+import { useState } from 'react'
+import {  AiFillCaretDown } from 'react-icons/ai';
 
 type SkinConditionFilterProps = {
   skinConditionCategories: CategoryType[] 

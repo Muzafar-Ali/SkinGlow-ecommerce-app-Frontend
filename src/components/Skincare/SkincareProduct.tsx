@@ -1,8 +1,9 @@
 import Link from "next/link";
 import ProductCard from "../ProductCard";
-import { skinCareProductType } from "@/utils/types";
+import { SkinCareProductType } from "@/utils/types";
 
-const SkincareProduct = ({ products }: {products: skinCareProductType[]}) => {
+
+const SkincareProduct = ({ products }: {products: SkinCareProductType[]}) => {
   return (
     <div className="w-[1132px]">
       <section className="grid grid-cols-2 tablet-s:grid-cols-3 laptop-m:grid-cols-4 gap-[24px]">

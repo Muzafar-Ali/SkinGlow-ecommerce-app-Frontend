@@ -1,5 +1,4 @@
-'use client'
-import { useState } from 'react'
+"use client"
 import { GrFormClose } from 'react-icons/gr';
 import CheekFilter from './MakeupFilterOptions/CheekFilter'
 import LipsFilter from './MakeupFilterOptions/LipsFilter'

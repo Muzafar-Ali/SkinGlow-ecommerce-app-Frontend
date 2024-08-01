@@ -1,10 +1,10 @@
-import { SingleMakeupProductType } from "@/utils/types";
+import { CombinedSingleProductType } from "@/utils/types";
 import { useState } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { TbCurrencyDollar } from "react-icons/tb";
 
-const ProductDescriptionMobile = ({ product }: { product: SingleMakeupProductType}) => {
+const ProductDescriptionMobile = ({ product }: { product: CombinedSingleProductType}) => {
   
  
   const [isSelected, setIsSelected] = useState<string[]>(['Product Details']) // default value display 

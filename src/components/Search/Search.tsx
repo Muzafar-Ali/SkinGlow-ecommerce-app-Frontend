@@ -6,6 +6,7 @@ import debounce from 'lodash.debounce';
 import Link from 'next/link';
 import SearchCard from './SearchCard';
 import algoliasearch from 'algoliasearch';
+import config from '@/config/config';
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -27,7 +28,6 @@ const Search = ({
   // isSuggestionOpen, 
   // setIsSuggestionOpen, 
 }: SearchProps) => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
   
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchProductType>([]);
@@ -36,7 +36,7 @@ const Search = ({
   useEffect(() => {
     const get = async () => {
       try {
-        const res = await fetch(`${BASEURL}/v1/makeup/all`,{
+        const res = await fetch(`${config.baseUri}/v1/makeup/all`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -254,6 +254,7 @@ const Search = ({
                     title={product.title}
                     thumbnail={product.thumbnail}
                     description={product.productDetails?.description}
+                    price={product.price}
                   />
                   </Link>
                 )) }
@@ -279,6 +280,7 @@ const Search = ({
                   title={product.title}
                   thumbnail={product.thumbnail}
                   description={product.productDetails?.description}
+                  price={product.price}
                 />
                 </Link>
               ))}

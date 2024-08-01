@@ -1,16 +1,18 @@
 'use client'
+import config from '@/config/config';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
-import { appendFormData } from '@/utils/helpers';
+import { appendFormData } from '@/utils/helpers/appendFormData';
+import { CategoryType } from '@/utils/types';
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 
 const CreateSkincareProduct = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
-  
-  const [skinCareCategory, setSkinCareCategory] = useState([]);
-  const [skinConditionCategory, setSkinConditionCategory] = useState([]);  
-  const [featuredCategory, setFeaturedCategory] = useState([]);
+ 
+  const [skinCareCategory, setSkinCareCategory] = useState<CategoryType[]>([]);
+  const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);  
+  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(false);
   
   const {
@@ -30,7 +32,7 @@ const CreateSkincareProduct = () => {
     try {
       setLoading(true)
       
-      const result = await fetch(`${BASEURL}/v1/skincare/create`, {
+      const result = await fetch(`${config.baseUri}/v1/skincare/create`, {
         method: "POST",
         body: formData,
       }) 
@@ -41,9 +43,9 @@ const CreateSkincareProduct = () => {
     }
   };
 
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincare/all`, setSkinCareCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategory)
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkinCareCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory)
 
   return (
     <>

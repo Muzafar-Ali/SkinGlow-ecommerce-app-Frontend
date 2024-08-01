@@ -6,18 +6,17 @@ import SkincareFilterOptionsDesktop from "@/components/Skincare/SkincareFilterOp
 import SkincareFilterOptionsMobile from "@/components/Skincare/SkincareFilterOptionsMobile";
 import SkincareProduct from "@/components/Skincare/SkincareProduct";
 import Wrapper from "@/components/Wrapper";
+import config from "@/config/config";
 import { useFetchCategories } from "@/hooks/useFetchCategories";
 import { filterOutProductsSkincare } from "@/utils/helpers/filterOutProductsSkincare";
-import { CategoryType, skinCareProductType } from "@/utils/types";
+import { CategoryType, SkinCareProductType } from "@/utils/types";
 import { useEffect, useState } from "react";
 import { MdOutlineArrowForwardIos, MdTune } from "react-icons/md";
 
 
 
 const WomenSkinCare = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
-  
-  const [products, setProducts] = useState<skinCareProductType[]>([])
+  const [products, setProducts] = useState<SkinCareProductType[]>([])
 
   const [isMobileDropDown, setIsMobileDropDown] = useState(false)
   const [isOutOfStock, setIsOutOfStock] = useState(true)
@@ -136,7 +135,7 @@ const WomenSkinCare = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${BASEURL}/v1/skincare/all`,{
+        const res = await fetch(`${config.baseUri}/v1/skincare/all`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -151,16 +150,16 @@ const WomenSkinCare = () => {
       }
     }
     fetchProducts()
-  }, [BASEURL])
+  }, [config.baseUri])
 
   // Fetch categories for each type of makeup
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincare/all`, setSkincareCategories);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincondition/all`, setSkinConditionCategories);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategories)
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkincareCategories);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategories);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategories)
 
   // function to display products based on filter Selection
   // const filteredProducts: skinCareProductType[] = products
-  const filteredProducts: skinCareProductType[] = filterOutProductsSkincare(
+  const filteredProducts: SkinCareProductType[] = filterOutProductsSkincare(
     appliedFilters, 
     products, 
     isOutOfStock, 

@@ -1,9 +1,9 @@
-import { MakeupProductType, SingleMakeupProductType } from "@/utils/types"
+import { CombinedSingleProductType } from "@/utils/types"
 import { useState } from "react"
 import { MdOutlineArrowForwardIos } from "react-icons/md"
 
 
-const ProductDescriptionDesktop = ({ product }: { product: SingleMakeupProductType}) => {
+const ProductDescriptionDesktop = ({ product }: { product: CombinedSingleProductType}) => {
 
   
   const [isReadLess, setIsReadLess] = useState(true) // State to toggle between showing full or summarized product information.

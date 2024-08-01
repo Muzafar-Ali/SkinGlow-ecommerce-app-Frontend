@@ -1,15 +1,17 @@
-'use client'
+"use client"
+import config from '@/config/config';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
+import { CategoryType } from '@/utils/types';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 
 const CreateProduct = () => {
   
-  const [cheekCategory, setCheekCategory] = useState([]);  
-  const [eyeCategory, setEyeCategory] = useState([]);
-  const [lipCategory, setLipCategory] = useState([]);
-  const [featuredCategory, setFeaturedCategory] = useState([]);
+  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);  
+  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
+  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
+  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -32,7 +34,7 @@ const CreateProduct = () => {
     try {
       setLoading(true)
       
-      await fetch("http://localhost:4000/v1/makeup/create", {
+      await fetch(`${config.baseUri}/v1/makeup/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

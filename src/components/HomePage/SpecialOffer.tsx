@@ -1,5 +1,4 @@
 import React from 'react'
-import Wrapper from '../Wrapper'
 import Image from 'next/image'
 import Link from 'next/link'
 

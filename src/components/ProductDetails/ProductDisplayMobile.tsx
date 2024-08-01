@@ -1,12 +1,12 @@
 import { CombinedSingleProductType } from "@/utils/types"
-import Image from "next/image"
 import { useState } from "react";
-import SvgGift from "../SVG/Gift";
-import SvgSeparator from "../SVG/Separator";
-import SvgAdvice from "../SVG/Advice";
 import { TbCurrencyDollar } from "react-icons/tb";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { useCart } from "@/store/store";
+import Image from "next/image"
+import SvgSeparator from "../SVG/Separator";
+import SvgGift from "../SVG/Gift";
+import SvgAdvice from "../SVG/Advice";
 
 const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}) => {
 

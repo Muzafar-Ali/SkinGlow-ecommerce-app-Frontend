@@ -1,9 +1,9 @@
 "use client"
 import { useFetchCategories } from '@/hooks/useFetchCategories';
 import { CategoryType } from '@/utils/types';
-import Link from 'next/link';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai';
+import Link from 'next/link';
 
 type MakeUpMobileMenuProps = {
   isLips: boolean;
@@ -16,7 +16,6 @@ type MakeUpMobileMenuProps = {
   setIsSelected: React.Dispatch<React.SetStateAction<string[]>>
   setIsDropDown: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 
 const MakeUpMobileMenu = ({ 
 isSelected,

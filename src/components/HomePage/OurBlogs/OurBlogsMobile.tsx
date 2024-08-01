@@ -1,9 +1,10 @@
 'use client'
 import CustomDot from "@/components/CarouselButtons/CustomDot";
 import Wrapper from "@/components/Wrapper";
-import { blogs } from "@/utils/data";
 import Image from "next/image";
 import Link from "next/link";
+import { blogs } from "@/utils/data";
+
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 

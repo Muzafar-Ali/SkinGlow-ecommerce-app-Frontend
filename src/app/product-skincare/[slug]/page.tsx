@@ -9,10 +9,9 @@ import { CombinedSingleProductType } from '@/utils/types';
 import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { useEffect, useState } from 'react'
+import config from '@/config/config';
 
 const ProductaDetailsSkincare = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
-  
   const { slug } = useParams()
   const [product, setProduct] = useState<CombinedSingleProductType[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -21,7 +20,7 @@ const ProductaDetailsSkincare = () => {
     const fetchProduct = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch(`${BASEURL}/v1/skincare/${slug}`, {
+        const response = await fetch(`${config.baseUri}/v1/skincare/${slug}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

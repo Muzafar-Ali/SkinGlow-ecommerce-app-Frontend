@@ -19,7 +19,7 @@ const ProductCategories = () => {
       src: '/WomenGifts.png'
     },
        
-  ]
+  ] 
   return (
     <div className="flex flex-col items-center py-12">
       <h2 className="font-bold text-xl">Product Categories</h2>

@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
 import { TbCurrencyDollar } from "react-icons/tb";
+import { useCart } from "@/store/store";
 import Image from "next/image"
 import SvgSeparator from "../SVG/Separator";
 import SvgGift from "../SVG/Gift";
 import SvgAdvice from "../SVG/Advice";
-import { useCart } from "@/store/store";
 
 
 const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType}) => {

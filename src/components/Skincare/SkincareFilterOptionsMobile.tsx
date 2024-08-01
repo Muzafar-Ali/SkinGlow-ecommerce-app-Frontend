@@ -1,14 +1,14 @@
-                 'use client'
+"use client"
 import React, { useState } from 'react'
 import CategoryFilter from './SkincareFilterOptions/SkincareCategoryFilter'
 import SkinCondition from './SkincareFilterOptions/SkinConditionFilter'
 import FeaturedFilter from './SkincareFilterOptions/FeaturedFilter'
 import PriceFilter from './SkincareFilterOptions/PriceFilter'
 import AppliedFiltersDisplay from './SkincareFilterOptions/AppliedFiltersDisplay'
-import { GrFormClose } from 'react-icons/gr';
-import { SkincareFilterOptionsDesktop } from './SkincareFilterOptionsDesktop'
 import SkincareCategoryFilter from './SkincareFilterOptions/SkincareCategoryFilter'
 import PriceFilterSkincare from './SkincareFilterOptions/PriceFilter'
+import { GrFormClose } from 'react-icons/gr';
+import { SkincareFilterOptionsDesktop } from './SkincareFilterOptionsDesktop'
 
 type SkincareFilterOptionsMobileProps = SkincareFilterOptionsDesktop & {
   setIsMobileDropDown: React.Dispatch<React.SetStateAction<boolean>>

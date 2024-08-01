@@ -9,9 +9,9 @@ import { CombinedSingleProductType } from '@/utils/types';
 import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { useEffect, useState } from 'react'
+import config from '@/config/config';
 
-const ProductaDetailsMakeup = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
+const ProductaDetailsMakeup = () => {;
   const { slug } = useParams()
   const [product, setProduct] = useState<CombinedSingleProductType[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -20,7 +20,7 @@ const ProductaDetailsMakeup = () => {
     const fetchProduct = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch(`${BASEURL}/v1/makeup/${slug}`, {
+        const response = await fetch(`${config.baseUri}/v1/makeup/${slug}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

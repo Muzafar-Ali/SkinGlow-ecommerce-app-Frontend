@@ -4,12 +4,12 @@ import { CombinedSingleProductType } from "@/utils/types";
 import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
+import config from "@/config/config";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const YouMayLike = ({ product }: { product: CombinedSingleProductType}) => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI; 
 
   const [similarProducts, setSimilarProducts] = useState<CombinedSingleProductType[]>([]);  
   const [categoryName, setCategoryName] = useState<string>();
@@ -59,7 +59,7 @@ const YouMayLike = ({ product }: { product: CombinedSingleProductType}) => {
       }
 
       try {
-        const response = await fetch(`${BASEURL}/v1/${mainCategoryInside}/category/${subCategory}/${category?.slug}`, {
+        const response = await fetch(`${config.baseUri}/v1/${mainCategoryInside}/category/${subCategory}/${category?.slug}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

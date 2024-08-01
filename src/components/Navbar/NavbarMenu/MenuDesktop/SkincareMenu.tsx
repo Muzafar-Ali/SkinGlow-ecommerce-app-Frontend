@@ -5,6 +5,7 @@ import { CategoryType, SkinCareProductType } from '@/utils/types';
 import { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import config from '@/config/config';
 
 type SkincareDesktopMenuProps = {
   dropdownStates: boolean[]
@@ -19,16 +20,14 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
   const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);
   const [collection, setCollection] = useState<SkinCareProductType[]>([]);
   
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
-  
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincare/all`, setSkinCareCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategory)
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkinCareCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory)
  
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await fetch(`${BASEURL}/v1/skincare/collection`, {
+        const response = await fetch(`${config.baseUri}/v1/skincare/collection`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

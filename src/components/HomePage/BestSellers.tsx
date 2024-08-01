@@ -3,6 +3,7 @@ import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
 import Wrapper from "../Wrapper";
+import config from "@/config/config";
 import { useEffect, useState } from "react";
 import { BestSellerType } from "@/utils/types";
 import { createURL } from "@/utils/helpers/createURL";
@@ -11,7 +12,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const BestSellers = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
 
   const [bestSeller, setBestSeller] = useState<BestSellerType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,8 +47,8 @@ const BestSellers = () => {
       try {
         setIsLoading(true)
         const bestSellersProducts = await Promise.all([
-          fetch(`${BASEURL}/v1/makeup/category/featured/best-seller`),
-          fetch(`${BASEURL}/v1/skincare/category/featured/best-seller`),
+          fetch(`${config.baseUri}/v1/makeup/category/featured/best-seller`),
+          fetch(`${config.baseUri}/v1/skincare/category/featured/best-seller`),
         ]);
 
         // Handle successful response

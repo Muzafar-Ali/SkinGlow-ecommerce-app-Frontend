@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { priceData } from '@/utils/data';
 

@@ -1,6 +1,6 @@
 "use client"
 import { priceData } from '@/utils/data';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai';
 
 type PriceFilterSkincareProps = {

@@ -1,5 +1,5 @@
 import { CategoryType } from '@/utils/types';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai';
 
 type FeaturedFilterProps = {

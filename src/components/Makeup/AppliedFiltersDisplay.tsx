@@ -1,5 +1,4 @@
-'use client'
-import React, { useState } from 'react'
+"use client"
 import { GrFormClose } from 'react-icons/gr';
 
 interface AppliedFiltersDisplayProps {

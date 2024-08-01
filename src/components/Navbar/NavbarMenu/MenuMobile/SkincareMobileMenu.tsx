@@ -3,6 +3,7 @@ import { CategoryType, SkinCareProductType } from '@/utils/types'
 import { FC, useEffect, useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai'
 import Link from 'next/link'
+import config from '@/config/config'
 
 
 type SkincareMobileMenuProps = { 
@@ -28,21 +29,20 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
   setIsCollectionOpen,
   setIsDropDown
 }) => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
 
   const [skincareCategory, setSkincareCategory] = useState<CategoryType[]>([]);
   const [skinConditionCategory, setskinConditionCategory] = useState<CategoryType[]>([]);
   const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [collection, setCollection] = useState<SkinCareProductType[]>([]);
   
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincare/all`, setSkincareCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/skincondition/all`, setskinConditionCategory);
-  useFetchCategories(`${BASEURL}/v1/skincare/category/featured/all`, setFeaturedCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkincareCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setskinConditionCategory);
+  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory);
 
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await fetch(`${BASEURL}/v1/skincare/collection`, {
+        const response = await fetch(`${config.baseUri}/v1/skincare/collection`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

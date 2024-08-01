@@ -1,6 +1,8 @@
 'use client'
+import config from '@/config/config';
 import { useFetchCategories } from '@/hooks/useFetchCategories';
-import { appendFormData } from '@/utils/helpers';
+import { appendFormData } from '@/utils/helpers/appendFormData';
+import { CategoryType } from '@/utils/types';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
@@ -8,10 +10,10 @@ import { useForm } from 'react-hook-form';
 const CreateMakeup = () => {
   const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
   
-  const [cheekCategory, setCheekCategory] = useState([]);  
-  const [eyeCategory, setEyeCategory] = useState([]);
-  const [lipCategory, setLipCategory] = useState([]);
-  const [featuredCategory, setFeaturedCategory] = useState([]);
+  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);  
+  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
+  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
+  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState(false);
   
 
@@ -32,7 +34,7 @@ const CreateMakeup = () => {
     try {
       setLoading(true)
       
-      const result = await fetch(`${BASEURL}/v1/makeup/create`, {
+      const result = await fetch(`${config.baseUri}/v1/makeup/create`, {
         method: "POST",
         body: formData,
       }) 
@@ -43,10 +45,10 @@ const CreateMakeup = () => {
     }
   };
 
-  useFetchCategories(`${BASEURL}/v1/makeup/category/lips/all`, setLipCategory);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/eyes/all`, setEyeCategory);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/cheek/all`, setCheekCategory)
-  useFetchCategories(`${BASEURL}/v1/makeup/category/featured/all`, setFeaturedCategory)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipCategory);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyeCategory);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategory)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategory)
   
   return (
     <>

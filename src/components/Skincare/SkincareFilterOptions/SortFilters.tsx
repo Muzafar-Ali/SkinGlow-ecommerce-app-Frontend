@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai';
 
 interface SortedFiltersProps {
