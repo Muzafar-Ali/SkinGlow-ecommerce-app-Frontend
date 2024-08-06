@@ -1,4 +1,4 @@
-import { API_URL, STRAPI_API_TOKEN } from "./urls";
+import config from '@/config/config';
 import { v4 as uuidv4 } from 'uuid';
 
 export const makePaymentRequest = async (endpoint: string, payload: any) => {
@@ -15,10 +15,9 @@ export const makePaymentRequest = async (endpoint: string, payload: any) => {
       date: currentDate,
     };
   
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const response = await fetch(`${config.baseUri}${endpoint}`, {
       method: "POST",
       headers: {
-        Authorization: "Bearer " + STRAPI_API_TOKEN,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedPayload),

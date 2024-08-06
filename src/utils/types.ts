@@ -77,59 +77,59 @@ export type MakeupProductType = {
 
 export type BestSellerType = SkinCareProductType & MakeupProductType;
 
-// export type SingleMakeupProductType = {
-//   title: string;
-//   slug?: string;
-//   tagline: string;
-//   description: string;
-//   price: number;
-//   stock: number;
-//   thumbnail: string;
-//   images: string[];
-//   productDetails: {
-//     description: string;
-//     ingredients: string;
-//     howToApply: string;
-//     features: string;
-//   },
-//   categories: {
-//     makeup: {
-//       cheekMakeupCategory?: {
-//         _id: string;
-//         name: string;
-//         slug: string;
-//         __v: number;
-//         products: MakeupProductType[];
-//       };
-//       eyesMakeupCategory?: {
-//         _id: string;
-//         name: string;
-//         slug: string;
-//         __v: number;
-//         products: MakeupProductType[];
-//       };
-//       lipsMakeupCategory?: {
-//         _id: string;
-//         name: string;
-//         slug: string;
-//         __v: number;
-//         products: MakeupProductType[];
-//       };
-//       featuredCategory?: {
-//         _id: string
-//         name: string;
-//         slug: string;
-//         __v: number;
-//         products: MakeupProductType[];
-//       };
-//     }
-//   }
+export type SingleMakeupProductType = {
+  title: string;
+  slug?: string;
+  tagline: string;
+  description: string;
+  price: number;
+  stock: number;
+  thumbnail: string;
+  images: string[];
+  productDetails: {
+    description: string;
+    ingredients: string;
+    howToApply: string;
+    features: string;
+  },
+  categories: {
+    makeup: {
+      cheekMakeupCategory?: {
+        _id: string;
+        name: string;
+        slug: string;
+        __v: number;
+        products: MakeupProductType[];
+      };
+      eyesMakeupCategory?: {
+        _id: string;
+        name: string;
+        slug: string;
+        __v: number;
+        products: MakeupProductType[];
+      };
+      lipsMakeupCategory?: {
+        _id: string;
+        name: string;
+        slug: string;
+        __v: number;
+        products: MakeupProductType[];
+      };
+      featuredCategory?: {
+        _id: string
+        name: string;
+        slug: string;
+        __v: number;
+        products: MakeupProductType[];
+      };
+    }
+  }
 
-//   createdAt: string;
-//   updatedAt: string;
-//   __v: number;
-//   _id: string;
-// }
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 export type CombinedSingleProductType = {
   title: string;
@@ -211,7 +211,7 @@ export type CombinedSingleProductType = {
 
 export type CartProductType = CombinedSingleProductType & {
   quantity: number;
-  onQuantityPrice: number;
+  itemPrice: number;
 }
 
 // Define the type for a single search result item

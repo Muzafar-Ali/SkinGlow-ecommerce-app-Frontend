@@ -1,17 +1,18 @@
-'use client'
-import Wrapper from '@/components/Wrapper'
-import Image from 'next/image'
-import Link from 'next/link'
+"use client"
 import { useCart } from '@/store/store'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { TbCurrencyDollar } from 'react-icons/tb'
 import { loadStripe } from '@stripe/stripe-js'
-// import { makePaymentRequest } from '@/lib/makePaymentRequest'
 import { CartProductType } from '@/utils/types'
+import { makePaymentRequest } from '@/utils/helpers/makePayementRequest'
+import Wrapper from '@/components/Wrapper'
+import Image from 'next/image'
+import Link from 'next/link'
+import config from '@/config/config'
 
-//it is required to keep this outside of component
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
+// it is required to keep this outside of component
+const stripePromise = loadStripe(config.stripePublishableKey as string);
 
 const Cart = () => {
 
@@ -26,32 +27,50 @@ const Cart = () => {
     updateCartItems(product, Number(e.target.value))
   }
 
-//   const handlePayment = async () => {
-//     try {
-//       setLoading(true);
-//       const stripe = await stripePromise;
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const stripe = await stripePromise;
+      console.log('stripe', stripe);
+      console.log('key', config.stripePublishableKey);
+      
+      
   
-//       if (stripe) {
-//         const response = await makePaymentRequest("/api/orders", {
-//           products: cartItems,
-//         });
+      if (stripe) {
+        const response = await makePaymentRequest("/v1/orders", {
+          orderItems: [
+            ...cartItems.map((item) => ({
+              id: item._id,
+              title: item.title,
+              thumbnail: item.thumbnail,
+              quantity: item.quantity,
+              itemsPrice: item.itemPrice,
+              price: item.price,
+            })),
+          ],
+
+          totalAmount: totalAmount,  
+          // products: cartItems,
+        });
+        console.log('response', response);
         
-//         if (response && response.stripeSession && response.stripeSession.id) {
-//           await stripe.redirectToCheckout({
-//             sessionId: response.stripeSession.id,
-//           });
-//         } else {
-//           console.error('Invalid response or missing stripeSession.id');
-//         }
-//       } else {
-//         console.error('Stripe is null');
-//       }
-//     } catch (error) {
-//       // Handle the error
-//       setLoading(false)
-//       console.error(error);
-//     }
-//   };
+        
+        if (response && response.stripeSession && response.stripeSession.id) {
+          await stripe.redirectToCheckout({
+            sessionId: response.stripeSession.id,
+          });
+        } else {
+          console.error('Invalid response or missing stripeSession.id');
+        }
+      } else {
+        console.error('Stripe is null');
+      }
+    } catch (error) {
+      // Handle the error
+      setLoading(false)
+      console.error(error);
+    }
+  };
   
   return (
     <Wrapper className='mt-5 px-[20px] laptop-s:pt-20 pb-10 min-h-[500px]'>
@@ -87,7 +106,7 @@ const Cart = () => {
                   <p className='text-neutral-950 text-xs tablet-m:text-sm font-normal laptop-s:mt-1 max-tablet-m:line-clamp-1'>{items?.tagline}</p>
                   <div className='mt-2 flex items-center space-x-8'>
                     <p className='text-neutral-950 text-xs tablet-m:text-sm font-normal'>
-                      <span className='font-semibold mr-1'>price :</span>  {items?.onQuantityPrice}
+                      <span className='font-semibold mr-1'>price :</span>  {items?.itemPrice}
                     </p>
                     <p className='text-neutral-950 text-xs tablet-m:text-sm font-normal'>
                       <span className='font-semibold mr-1'>Quantity:</span>
@@ -160,7 +179,7 @@ const Cart = () => {
             </p>
           </div>
           <button
-            // onClick={handlePayment} 
+            onClick={handlePayment} 
             className="w-full h-[45px] px-4 py-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out">
             <p className="text-white text-base font-normal capitalize leading-7 bg-transparent"> Checkout </p>
             { loading && <Image width={20} height={20} alt='' className='inline-block bg-pink-800' src="/spinner.svg" /> }

@@ -30,7 +30,7 @@ export const useCart = create<CartType>((set) => ({
         }
 
         item.quantity += 1;
-        item.price = item.onQuantityPrice * item.quantity;
+        item.price = item.itemPrice * item.quantity;
       } else {
         return { cartItems: [...state.cartItems, { ...newItem, quantity: 1 }] };
       }
@@ -52,8 +52,8 @@ export const useCart = create<CartType>((set) => ({
   updateCartItems: (newItem: CartProductType, quantitySelected: number) => {
     set((state) => {
       const updatedCartItems = state.cartItems.map((product) =>{
-        if(product._id === newItem._id && newItem.onQuantityPrice !== undefined){
-          product.price = newItem.onQuantityPrice * quantitySelected;
+        if(product._id === newItem._id && newItem.itemPrice !== undefined){
+          product.price = newItem.itemPrice * quantitySelected;
           product.quantity = quantitySelected;
         }
         return{ ...product}
