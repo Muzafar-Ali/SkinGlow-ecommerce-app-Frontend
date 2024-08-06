@@ -226,12 +226,12 @@ const Search = ({
             <p className="text-pink-800 text-sm laptop-s:text-base font-bold capitalize leading-snug laptop-s:leading-7">
               {results.length > 0 && (
                 <>
-                  Showing <span className="font-bold underline">{results.length}</span> {results.length >=2 ? "products": "product"} for "<span className="italic">{query}</span>"
+                  Showing <span className="font-bold underline">{results.length}</span> {results.length >= 2 ? "products": "product"} for <span className="italic">{query}</span>"
                 </>
               )} 
 
               {results.length === 0 && query !='' &&  (
-                <><span className={`${results.length === 0 ? 'text-neutral-950':'text-pink-800'}`}>No products found for </span>"<span className="italic">{query}</span>"</>
+                <><span className={`${results.length === 0 ? 'text-neutral-950':'text-pink-800'}`}>No products found for </span><span className="italic">{query}</span>"</>
               )}
             </p>
           </div>

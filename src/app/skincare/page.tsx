@@ -150,7 +150,7 @@ const WomenSkinCare = () => {
       }
     }
     fetchProducts()
-  }, [config.baseUri])
+  }, [])
 
   // Fetch categories for each type of makeup
   useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkincareCategories);
