@@ -1,10 +1,10 @@
 "use client"
 import Image from 'next/image'
 import { TbCurrencyDollar } from 'react-icons/tb';
-import { bestSellerType, MakeupProductType, skinCareProductType } from '@/utils/types';
+import { BestSellerType, MakeupProductType, SkinCareProductType,  } from '@/utils/types';
 
 interface ProductCardProps {
-  product: bestSellerType | MakeupProductType | skinCareProductType;
+  product: BestSellerType | MakeupProductType | SkinCareProductType;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {

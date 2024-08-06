@@ -1,9 +1,9 @@
-import { skinCareProductType } from "../types";
+import { SkinCareProductType } from "../types";
 
 
 export const filterOutProductsSkincare = (
     appliedFilters: string[], 
-    products: skinCareProductType[], 
+    products: SkinCareProductType[], 
     isOutOfStock?: boolean, 
     displaySortFilterValue?:string, 
     categoryFilters?: string[],
@@ -11,7 +11,7 @@ export const filterOutProductsSkincare = (
     featuredFilters?: string[],
     priceFilters?: string[],
     categoryWords?: string[],
-  ): skinCareProductType[] =>  {
+  ): SkinCareProductType[] =>  {
    
     let filteredProducts = products?.filter((product) => {
 
@@ -34,28 +34,28 @@ export const filterOutProductsSkincare = (
       }
 
       if ( categoryFilters && categoryFilters.length > 0 && !skinCategories?.some((category) => {
-        const categoryTitle = category;        
+        const categoryTitle = category as unknown as string;        
         return categoryFilters.includes(categoryTitle);
       })) {
         return false;
       }
 
       if (skinConditionFilters && skinConditionFilters.length > 0 && !skinConditionCategories?.some((category) => {
-        const skinConditionTitle = category;
+        const skinConditionTitle = category as unknown as string;   
         return skinConditionFilters.includes(skinConditionTitle);
       })){
         return false;
       }
 
       if (featuredFilters && featuredFilters.length > 0 && !featuredCategories?.some((category) => {
-        const marketingCategoryTitle = category;
+        const marketingCategoryTitle = category as unknown as string;   
         return featuredFilters.includes(marketingCategoryTitle);
       })){
         return false;
       }
       
       if (displaySortFilterValue === 'latest arrival' && !featuredCategories?.some((category) => {
-        const featuredCategoryId = category;
+        const featuredCategoryId = category as unknown as string;  
         return featuredCategoryId === '6692f5b5912b28665afef6fd';
       })){
         return false;

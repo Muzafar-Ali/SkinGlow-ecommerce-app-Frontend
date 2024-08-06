@@ -23,7 +23,7 @@ export const filterOutProductsMakeup = (
           let cheekCategories = [cheekCategory]
           
           if (cheekFilters && cheekFilters.length > 0 && !cheekCategories?.some((category) => {
-            const cheekCategoryTitle = category
+            const cheekCategoryTitle = category as unknown as string
             return cheekFilters.includes(cheekCategoryTitle);
           })){
             return false;
@@ -46,7 +46,7 @@ export const filterOutProductsMakeup = (
           let lipsCategories = [lipsCategory]
     
           if (lipsFilters && lipsFilters.length > 0 && !lipsCategories?.some((category) => {
-            const cheekCategoryTitle = category;
+            const cheekCategoryTitle = category as unknown as string
             return lipsFilters.includes(cheekCategoryTitle);
           })){
             return false;
@@ -69,7 +69,8 @@ export const filterOutProductsMakeup = (
           let eyesCategories = [eyesCategory]
     
           if (eyesFilters && eyesFilters.length > 0 && !eyesCategories?.some((category) => {
-            const cheekCategoryTitle = category;
+            const cheekCategoryTitle = category as unknown as string
+            
             return eyesFilters.includes(cheekCategoryTitle);
           })){
             return false;
@@ -95,14 +96,14 @@ export const filterOutProductsMakeup = (
       
       
       if (featuredFilters && featuredFilters.length > 0 && !featuredCategories?.some((category) => {
-        const featuredCategoryId = category;
+        const featuredCategoryId = category as unknown as string
         return featuredFilters.includes(featuredCategoryId);
       })){
         return false;
       }
     
       if (displaySortFilterValue === 'latest arrival' && !featuredCategories?.some((category) => {
-        const featuredCategoryId = category;
+        const featuredCategoryId = category as unknown as string
         return featuredCategoryId === '66622cba7d9a24090ad18458';
       })){
         return false;

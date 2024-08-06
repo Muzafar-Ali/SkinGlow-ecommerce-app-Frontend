@@ -61,7 +61,6 @@ const Search = ({
     }
   };
 
-  // Delay search for 300 milli seconds
   const debouncedSearch = useCallback(
     debounce(async (searchQuery: string) => {
       if (searchQuery.trim() === '') {
@@ -69,10 +68,11 @@ const Search = ({
         return;
       }
       const { hits } = await index.search(searchQuery);
-          
+  
       setResults(hits as SearchProductType);
     }, 300), // Adjust debounce delay as needed
-  []);
+    [] // Empty dependency array is fine here since we're not using any external values that change
+  );
 
   // Handle input changes
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -226,12 +226,12 @@ const Search = ({
             <p className="text-pink-800 text-sm laptop-s:text-base font-bold capitalize leading-snug laptop-s:leading-7">
               {results.length > 0 && (
                 <>
-                  Showing <span className="font-bold underline">{results.length}</span> {results.length >= 2 ? "products": "product"} for <span className="italic">{query}</span>"
+                  Showing <span className="font-bold underline">{results.length}</span> {results.length >= 2 ? "products": "product"} for <span className="italic">{query}</span>
                 </>
               )} 
 
               {results.length === 0 && query !='' &&  (
-                <><span className={`${results.length === 0 ? 'text-neutral-950':'text-pink-800'}`}>No products found for </span><span className="italic">{query}</span>"</>
+                <><span className={`${results.length === 0 ? 'text-neutral-950':'text-pink-800'}`}>No products found for </span><span className="italic">{query}</span></>
               )}
             </p>
           </div>
