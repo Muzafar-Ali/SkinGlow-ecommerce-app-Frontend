@@ -31,29 +31,13 @@ const Cart = () => {
     try {
       setLoading(true);
       const stripe = await stripePromise;
-      console.log('stripe', stripe);
-      console.log('key', config.stripePublishableKey);
-      
-      
-  
+
       if (stripe) {
         const response = await makePaymentRequest("/v1/orders", {
-          orderItems: [
-            ...cartItems.map((item) => ({
-              id: item._id,
-              title: item.title,
-              thumbnail: item.thumbnail,
-              quantity: item.quantity,
-              itemsPrice: item.itemPrice,
-              price: item.price,
-            })),
-          ],
-
           totalAmount: totalAmount,  
-          // products: cartItems,
+          orderItems: cartItems,
         });
         console.log('response', response);
-        
         
         if (response && response.stripeSession && response.stripeSession.id) {
           await stripe.redirectToCheckout({

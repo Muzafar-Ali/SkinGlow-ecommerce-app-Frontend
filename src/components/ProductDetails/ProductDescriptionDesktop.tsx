@@ -19,6 +19,10 @@ const ProductDescriptionDesktop = ({ product }: { product: CombinedSingleProduct
       "content": product?.productDetails.description
     },
     {
+      "label": "How To Apply",
+      "content": product?.productDetails.howToApply
+    },
+    {
       "label": "Ingredient",
       "content": product?.productDetails.ingredients
     },
@@ -26,11 +30,7 @@ const ProductDescriptionDesktop = ({ product }: { product: CombinedSingleProduct
       "label": "What Makes It Advance",
       "content": product?.productDetails.features
     },
-    {
-      "label": "How To Apply",
-      "content": product?.productDetails.howToApply
-    }
-  ]
+  ] as const
   
   const selectedLabel = productInformation?.filter((item) => item?.label === isLabelSelected)
   
@@ -47,29 +47,36 @@ const ProductDescriptionDesktop = ({ product }: { product: CombinedSingleProduct
     <div className='hidden laptop-s:flex flex-col mb-20'>
       {/* Description headings starts */}
       <section className='flex items-center justify-between w-full mt-[32px] py-2'>
+        {/* Product Details */}
         <div 
           className={`${isLabelSelected === "Product Details" ? "text-pink-800 border-b-2 border-pink-800":"text-zinc-600"} text-lg font-bold leading-7 cursor-pointer`}
           onClick={() => setIsLableSelected("Product Details") }  
         >
-          {"Product Details"}
+          { productInformation[0].label }
         </div>
+
+        {/* How To Apply */}
         <div 
           className={`${isLabelSelected === "How To Apply" ? "text-pink-800 border-b-2 border-pink-800":"text-zinc-600"} text-lg font-bold leading-7 cursor-pointer`}
           onClick={() => setIsLableSelected("How To Apply") }  
-        >
-          {"How To Apply"}
+          >
+          { productInformation[1].label }
         </div>
+        
+        {/* Ingredient */}
         <div 
           className={`${isLabelSelected === "Ingredient" ? "text-pink-800 border-b-2 border-pink-800":"text-zinc-600"} text-lg font-bold leading-7 cursor-pointer`}
           onClick={() => setIsLableSelected("Ingredient") }  
-        >
-          {"Ingredient"}
+          >
+          { productInformation[2].label }
         </div>
+
+        {/* What Makes It Advance */}
         <div 
           className={`${isLabelSelected === "What Makes It Advance" ? "text-pink-800 border-b-2 border-pink-800":"text-zinc-600"} text-lg font-bold leading-7 cursor-pointer`}
           onClick={() => setIsLableSelected("What Makes It Advance") }  
-        >
-          {"What Makes It Advance"}
+          >
+          { productInformation[3].label }
         </div>
       </section>
       {/* Description headings ends */}

@@ -5,11 +5,15 @@ import ProductDisplayDesktop from '@/components/ProductDetails/ProductDisplayDes
 import ProductDisplayMobile from '@/components/ProductDetails/ProductDisplayMobile';
 import YouMayLike from '@/components/ProductDetails/YouMayLike';
 import Wrapper from '@/components/Wrapper'
+import config from '@/config/config';
+import SkeletonProductDisplayDesktop from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDisplayDesktop';
+import SkeletonProductDisplayMobile from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDisplayMobile';
 import { CombinedSingleProductType } from '@/utils/types';
 import { useParams } from 'next/navigation';
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { useEffect, useState } from 'react'
-import config from '@/config/config';
+import SkeletonProductDescriptionDesktop from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionDesktop';
+import SkeletonProductDescriptionMobile from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionMobile';
 
 const ProductaDetailsMakeup = () => {;
   const { slug } = useParams()
@@ -56,40 +60,53 @@ const ProductaDetailsMakeup = () => {;
         </section>
 
         <section> 
-          { product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
-            <div key={product?._id}>
-              <ProductDisplayDesktop product={product}/>
-            </div>
-          ))}         
+          {isLoading && <SkeletonProductDisplayDesktop/>}
+
+          {!isLoading && (
+            product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
+              <div key={product?._id}>
+                <ProductDisplayDesktop product={product}/>
+              </div>
+            ))         
+          )}
 
           {/* product display on mobile */}
-          { product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
-            <div key={product?._id}>
-              <ProductDisplayMobile product={product}/>
-            </div>
-          ))}
+          {isLoading && <SkeletonProductDisplayMobile/>}
+
+          {!isLoading && (
+            product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
+              <div key={product?._id}>
+                <ProductDisplayMobile product={product}/>
+              </div>
+            ))
+           )}
         </section>
 
-          {/* product description on desktop */}
+        {/* product description on desktop */}
         <section>
-          { product?.map((product) => (
+          {isLoading && <SkeletonProductDescriptionDesktop/>}
+
+          {!isLoading && product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
             <div key={product?._id}>
               <ProductDescriptionDesktop product={product}/>
             </div>
           ))}
 
           {/* product description on mobile */}
-          { product?.map((product) => (
+          {isLoading && <SkeletonProductDescriptionMobile/>}
+          
+          {!isLoading && product?.map((product) => ( // using map here to receive images otherwise it will show empty thumbnail
             <div key={product?._id}>
               <ProductDescriptionMobile product={product}/>
             </div>
           ))}
         </section>
-
+        
+        {/* you may also like section */}
         <section>
           { product?.map((product) => (
             <div key={product?._id}>
-              <YouMayLike product={product}/>
+              <YouMayLike product={product} isLoading={isLoading}/>
             </div>
           ))}
         </section>

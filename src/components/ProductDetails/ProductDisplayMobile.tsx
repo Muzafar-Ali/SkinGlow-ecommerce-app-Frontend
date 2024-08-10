@@ -18,7 +18,7 @@ const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}
   const [category, setCategory] = useState<string>();
 
   return (
-    <section className='flex flex-col justify-between gap-6 h-auto w-full mt-2 laptop-s:hidden tablet-s:px-10 tablet-m:px-20'>
+    <div className='flex flex-col justify-between gap-6 h-auto w-full mt-2 laptop-s:hidden tablet-s:px-10 tablet-m:px-20'>
 
       <section className='w-full flex flex-col gap-y-4'>
         <div className="text-pink-800 text-2xl font-bold leading-[33.60px]">{product?.title}</div>
@@ -76,18 +76,17 @@ const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}
         <span>{product?.price}</span>
       </div>
       <div className="flex flex-col items-center">
-
-      {/* Add to cart button starts */}
-      <button 
-        onClick={() => addtoCart({...product, quantity: 1, itemPrice: product?.price})}
-        className="w-full h-[45px] px-4 py-2 mt-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out"
-        >
-        <div className="w-8 h-8 relative text-white flex items-center justify-center">
-          <PiShoppingCartSimpleBold className="w-6 h-6"/>
-        </div>
-        <p className="text-white text-base font-normal capitalize leading-7">Add to Bag</p>
-      </button>
-      {/* Add to cart button ends */}
+        {/* Add to cart button starts */}
+        <button 
+          onClick={() => addtoCart({...product, quantity: 1, itemPrice: product?.price})}
+          className="w-full h-[45px] px-4 py-2 mt-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out"
+          >
+          <div className="w-8 h-8 relative text-white flex items-center justify-center">
+            <PiShoppingCartSimpleBold className="w-6 h-6"/>
+          </div>
+          <p className="text-white text-base font-normal capitalize leading-7">Add to Bag</p>
+        </button>
+        {/* Add to cart button ends */}
 
       </div>
 
@@ -108,13 +107,7 @@ const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}
       </section>
       {/* value proposition end */}
 
-      <section className={`${showBranchesStock ? 'visible':'hidden'} absolute z-10 top-0 left-0 shadow-2xl`}>
-        {/* <CheckBranchStockMobile
-          setShowBranchesStock={setShowBranchesStock}
-        /> */}
-      </section>
-
-    </section>
+    </div>
   )
 }
 

@@ -5,6 +5,7 @@ import { createURL } from "@/utils/helpers/createURL";
 import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
+import SkeletonSliderHomePage from "./SkeletonSliderHomepage";
 import config from "@/config/config";
 
 import Carousel from "react-multi-carousel";
@@ -87,11 +88,15 @@ const Latest = () => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {latest?.map((product) => (
-          <Link href={createURL(product)} key={product?._id}>
-            <ProductCard product={product} />
-          </Link>
-        ))}
+        {isLoading && <SkeletonSliderHomePage/> }
+
+        {!isLoading && (
+          latest?.map((product) => (
+            <Link href={createURL(product)} key={product?._id}>
+              <ProductCard product={product} />
+            </Link>
+          ))
+        )}
       </Carousel>
     </div>
   );

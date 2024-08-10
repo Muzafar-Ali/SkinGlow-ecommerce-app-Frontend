@@ -7,6 +7,7 @@ import config from "@/config/config";
 import { useEffect, useState } from "react";
 import { BestSellerType } from "@/utils/types";
 import { createURL } from "@/utils/helpers/createURL";
+import SkeletonSliderHomePage from "./SkeletonSliderHomepage";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -55,9 +56,7 @@ const BestSellers = () => {
         const data = await Promise.all(
           bestSellersProducts.map(async (response) => response.json())
         );
-        const products = data.flatMap(
-          (item) => item.bestSellerProducts.products
-        );
+        const products = data.flatMap((item) => item.bestSellerProducts.products);
         setBestSeller(products);
       } catch (error) {
         // Handle errors during fetching
@@ -77,22 +76,27 @@ const BestSellers = () => {
       <div className="text-neutral-950 text-xl tablet-s:text-2xl font-bold text-center mb-4 tablet-s:mb-[32px] capitalize leading-[33.60px]">
         Our Best Sellers
       </div>
-      <Carousel
-        responsive={responsive}
-        arrows={false}
-        swipeable={true}
-        draggable={true}
-        itemClass="px-[5px] tablet-s:px-[10px]"
-        containerClass="mx-[25px] mobile-m:mx-[30px] mobile-l:mx-[35px] tablet-s:mx-[40px] tablet-m:mx-[60px] laptop-s:mx-[80px] laptop-m:mx-[90px] laptop-l:mx-[100px] py-2"
-        renderButtonGroupOutside={true}
-        customButtonGroup={<ButtonGroup />}
-      >
-        {bestSeller?.map((product) => (
-          <Link href={createURL(product)} key={product?._id}>
-            <ProductCard product={product} />
-          </Link>
-        ))}
-      </Carousel>
+        <Carousel
+          responsive={responsive}
+          arrows={false}
+          swipeable={true}
+          draggable={true}
+          itemClass="px-[5px] tablet-s:px-[10px]"
+          containerClass="mx-[25px] mobile-m:mx-[30px] mobile-l:mx-[35px] tablet-s:mx-[40px] tablet-m:mx-[60px] laptop-s:mx-[80px] laptop-m:mx-[90px] laptop-l:mx-[100px] py-2"
+          renderButtonGroupOutside={true}
+          customButtonGroup={<ButtonGroup />}
+        >
+          {isLoading && <SkeletonSliderHomePage/> }
+
+          {!isLoading && (
+            bestSeller?.map((product) => (
+              <Link href={createURL(product)} key={product?._id}>
+                <ProductCard product={product} />
+              </Link>
+            ))
+          )}
+          
+        </Carousel>
     </Wrapper>
   );
 };

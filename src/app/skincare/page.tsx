@@ -1,7 +1,8 @@
 'use client'
 import AppliedFiltersDisplay from "@/components/Makeup/AppliedFiltersDisplay";
 import SortFilters from "@/components/Makeup/MakeupFilterOptions/sortFilters";
-import SkeletonMakeup from "@/components/Makeup/SkeletonMakeup";
+import SkeletonFilterOptions from "@/components/Makeup/SkeletonMakeup/SkeletonFilterOptions";
+import SkeletonMakeupPage from "@/components/Makeup/SkeletonMakeup/SkeletonMakeupPage";
 import SkincareFilterOptionsDesktop from "@/components/Skincare/SkincareFilterOptionsDesktop";
 import SkincareFilterOptionsMobile from "@/components/Skincare/SkincareFilterOptionsMobile";
 import SkincareProduct from "@/components/Skincare/SkincareProduct";
@@ -158,7 +159,6 @@ const WomenSkinCare = () => {
   useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategories)
 
   // function to display products based on filter Selection
-  // const filteredProducts: skinCareProductType[] = products
   const filteredProducts: SkinCareProductType[] = filterOutProductsSkincare(
     appliedFilters, 
     products, 
@@ -169,19 +169,6 @@ const WomenSkinCare = () => {
     featuredFilters,
     skincarePriceFilters,
   )
-
-  // // function to display products based on filter Selection
-  // const filteredProducts: ProductsType2[] = filterOutProductsSkincare(
-  //   appliedFilters, 
-  //   products, 
-  //   isOutOfStock, 
-  //   displaySortFilterValue, 
-  //   categoryFilters,
-  //   skinConditionFilters,
-  //   featuredFilters,
-  //   priceFilters,
-  //   categoryWords
-  // )
 
   return (
     <Wrapper className='px-[20px] w-full'>
@@ -230,22 +217,32 @@ const WomenSkinCare = () => {
         {/* Sort and recommendation ends*/}
       </section>
 
+      {/* Left side filter option */}
       <section className='flex justify-between gap-[24px] w-full'>
-        {/* Left side filter option */}
-        <SkincareFilterOptionsDesktop
-          skincareCategories={skincareCategories}
-          skinConditionCategories={skinConditionCategories}
-          featuredCategories={featuredCategories}
-          appliedFilters={appliedFilters}
-          skincareCategoryFilters={skincareCategoryFilters}
-          skinConditionFilters={skinConditionFilters}
-          featuredFilters={featuredFilters}
-          skincarePriceFilters={skincarePriceFilters}
-          isOutOfStock={isOutOfStock}
-          setIsOutOfStock={setIsOutOfStock}
-          clearFilters={clearFilters}
-          handleSkincareFiltersChange={handleSkincareFiltersChange}
-        />
+        { skincareCategories.length === 0 && 
+          skinConditionCategories.length === 0 && 
+          featuredCategories.length === 0 && <SkeletonFilterOptions page={"skincare"}/>
+        }
+        
+        { skincareCategories.length > 0 && 
+          skinConditionCategories.length > 0 && 
+          featuredCategories.length > 0 && (
+            <SkincareFilterOptionsDesktop
+              skincareCategories={skincareCategories}
+              skinConditionCategories={skinConditionCategories}
+              featuredCategories={featuredCategories}
+              appliedFilters={appliedFilters}
+              skincareCategoryFilters={skincareCategoryFilters}
+              skinConditionFilters={skinConditionFilters}
+              featuredFilters={featuredFilters}
+              skincarePriceFilters={skincarePriceFilters}
+              isOutOfStock={isOutOfStock}
+              setIsOutOfStock={setIsOutOfStock}
+              clearFilters={clearFilters}
+              handleSkincareFiltersChange={handleSkincareFiltersChange}
+            />
+          )
+        }
 
         <div className={`${isMobileDropDown ? 'visible-container':'hidden-container'} absolute top-0 left-0 z-10 flex laptop-s:hidden w-full`}>
           <SkincareFilterOptionsMobile
@@ -266,16 +263,9 @@ const WomenSkinCare = () => {
         </div>
 
         {/* Rigth side product cards starts*/}
-        { filteredProducts?.length === 0 && <SkeletonMakeup />}
+        { filteredProducts?.length === 0 && <SkeletonMakeupPage />}
 
-        { filteredProducts?.length > 0 &&
-          <SkincareProduct products = {filteredProducts} />
-        }
-
-        {/* <Suspense fallback={<SkeletonMakeup/>}>
-          <MakeupProducts products={filteredProducts} />
-        </Suspense> */}
-        {/* Rigth side product cards ends*/}
+        { filteredProducts?.length > 0 &&   <SkincareProduct products = {filteredProducts} />}
       </section>
     </Wrapper>
   )

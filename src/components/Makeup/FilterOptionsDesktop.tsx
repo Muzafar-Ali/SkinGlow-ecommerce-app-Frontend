@@ -65,6 +65,8 @@ const FilterOptionsDesktop = (
         {/* Out of stock ends*/}
 
       </div>
+
+      {/* Makeup filter options starts */}
       <div>
         <CheekFilter
           cheekCategories={cheekCategories}
@@ -95,6 +97,7 @@ const FilterOptionsDesktop = (
           handleMakeupFiltersChange={handleMakeupFiltersChange}
         />
       </div>
+      {/* Makeup filter options ends */}
     </div>
   )
 }

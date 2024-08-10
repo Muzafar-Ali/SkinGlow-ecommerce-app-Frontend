@@ -38,7 +38,7 @@ const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType
   }
 
   return (
-    <div className='hidden laptop-s:flex justify-between gap-6 h-[550px] mt-2 relativ'>
+    <div className='hidden laptop-s:flex justify-between gap-6 h-[550px] mt-2 relative'>
       <section className="flex">
         {/* small images starts */}
         <div className='inline-flex flex-col gap-6 cursor-pointer'>
@@ -71,9 +71,8 @@ const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType
           width={1000}
           height={1000}
           alt={product?.title!}
-        
           className='h-full'
-          />
+        />
       </div>
       {/* large image ends */}
 

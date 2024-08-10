@@ -4,12 +4,13 @@ import FilterOptionsDesktop from '@/components/Makeup/FilterOptionsDesktop'
 import SortFilters from '@/components/Makeup/MakeupFilterOptions/sortFilters'
 import MakeupFilterOptionsMobile from '@/components/Makeup/MakeupFilterOptionsMobile'
 import MakeupProducts from '@/components/Makeup/MakeupProducts'
-import SkeletonMakeup from '@/components/Makeup/SkeletonMakeup'
+import SkeletonFilterOptions from '@/components/Makeup/SkeletonMakeup/SkeletonFilterOptions'
+import SkeletonMakeupPage from '@/components/Makeup/SkeletonMakeup/SkeletonMakeupPage'
 import Wrapper from '@/components/Wrapper'
 import { useFetchCategories } from '@/hooks/useFetchCategories'
 import { filterOutProductsMakeup } from '@/utils/helpers/filterOutProductsMakeup'
 import { CategoryType, MakeupProductType } from '@/utils/types'
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdOutlineArrowForwardIos, MdTune } from 'react-icons/md'
 
 const MakeupProductPage = () => {
@@ -231,25 +232,37 @@ const MakeupProductPage = () => {
         {/* Sort and recommendation ends*/}
       </section>
 
+      {/* Left side filter option */}
       <section className='flex justify-between gap-[24px] w-full'>
-        {/* Left side filter option */}
-        <FilterOptionsDesktop
-          cheekCategories={cheekCategories}
-          lipCategories={lipCategories}
-          eyeCategories={eyeCategories}
-          featuredCategories={featuredCategories}
-          appliedFilters={appliedFilters}
-          cheekFilters={cheekFilters}
-          lipsFilters={lipsFilters}
-          eyesFilters={eyesFilters}
-          featuredFilters={featuredFilters}
-          makeupPriceFilters={makeupPriceFilters}
-          isOutOfStock={isOutOfStock}
-          setIsOutOfStock={setIsOutOfStock}
-          clearFilters={clearFilters}
-          handleMakeupFiltersChange={handleMakeupFiltersChange}
-        />
 
+        { cheekCategories.length === 0 && 
+          lipCategories.length === 0 && 
+          eyeCategories.length === 0 && 
+          featuredCategories.length === 0 && <SkeletonFilterOptions page={"makeup"}/>
+        }
+
+        { cheekCategories.length > 0 && 
+          lipCategories.length > 0 && 
+          eyeCategories.length > 0 && 
+          featuredCategories.length > 0 && (
+          <FilterOptionsDesktop
+            cheekCategories={cheekCategories}
+            lipCategories={lipCategories}
+            eyeCategories={eyeCategories}
+            featuredCategories={featuredCategories}
+            appliedFilters={appliedFilters}
+            cheekFilters={cheekFilters}
+            lipsFilters={lipsFilters}
+            eyesFilters={eyesFilters}
+            featuredFilters={featuredFilters}
+            makeupPriceFilters={makeupPriceFilters}
+            isOutOfStock={isOutOfStock}
+            setIsOutOfStock={setIsOutOfStock}
+            clearFilters={clearFilters}
+            handleMakeupFiltersChange={handleMakeupFiltersChange}
+          />
+        )}
+        
         <div className={`${isMobileDropDown ? 'visible-container':'hidden-container'} absolute top-0 left-0 z-10 flex laptop-s:hidden w-full`}>
           <MakeupFilterOptionsMobile
             cheekCategories={cheekCategories}
@@ -271,15 +284,10 @@ const MakeupProductPage = () => {
         </div>
 
         {/* Rigth side product cards starts*/}
-        { filteredProducts?.length === 0 && <SkeletonMakeup />}
+        { filteredProducts?.length === 0 && <SkeletonMakeupPage />}
 
-        { filteredProducts?.length > 0 &&
-          <MakeupProducts products = {filteredProducts} />
-        }
+        { filteredProducts?.length > 0 && <MakeupProducts products = {filteredProducts} />}
 
-        {/* <Suspense fallback={<SkeletonMakeup/>}>
-          <MakeupProducts products={filteredProducts} />
-        </Suspense> */}
         {/* Rigth side product cards ends*/}
       </section>
     </Wrapper>

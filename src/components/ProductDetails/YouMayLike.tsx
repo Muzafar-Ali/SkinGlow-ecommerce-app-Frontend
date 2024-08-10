@@ -4,12 +4,19 @@ import { CombinedSingleProductType } from "@/utils/types";
 import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
+import SkeletonSliderHomePage from "../HomePage/SkeletonSliderHomepage";
 import config from "@/config/config";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Skeleton } from "../ui/skeleton";
 
-const YouMayLike = ({ product }: { product: CombinedSingleProductType}) => {
+type YouMayLikeProps = {
+  product: CombinedSingleProductType;
+  isLoading: boolean;
+};
+
+const YouMayLike = ({ product, isLoading }: YouMayLikeProps) => {
 
   const [similarProducts, setSimilarProducts] = useState<CombinedSingleProductType[]>([]);  
   const [categoryName, setCategoryName] = useState<string>();
@@ -109,10 +116,15 @@ const YouMayLike = ({ product }: { product: CombinedSingleProductType}) => {
 
 
   return (
-    <div className="w-full max-w-[1520px] mx-auto relative py-6 bg-red-50 mt-[32px] tablet-s:mt-6 laptop-s:pb-20 laptop-s:mb-40">
-      <div className="text-black text-xl tablet-s:text-2xl font-bold text-center mb-4 tablet-s:mb-[32px] capitalize leading-[33.60px]">
-        <span className='text-pink-800 text-xl tablet-s:text-2xl'>{categoryName}</span> you may like
-      </div>
+    <div className="w-full max-w-[1520px] mx-auto py-6 bg-red-50 mt-[32px] tablet-s:mt-6 laptop-s:pb-20 laptop-s:mb-40 relative">
+      <p className="flex items-center  gap-x-2 justify-center text-black text-xl tablet-s:text-2xl font-bold text-center mb-4 tablet-s:mb-[32px] capitalize leading-[33.60px]">
+        
+        <span className='text-pink-800 text-xl tablet-s:text-2xl'>
+          {isLoading && <Skeleton className="h-7 w-24 bg-pink-800"/>}
+          {!isLoading && categoryName}
+        </span> 
+        <span> you may like </span>
+      </p>
       <Carousel
         responsive={responsive}
         arrows={false}
@@ -123,11 +135,15 @@ const YouMayLike = ({ product }: { product: CombinedSingleProductType}) => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {similarProduct?.map((product) => (
-          <Link href={`/product-${mainCategory}/${product?.slug}`} key={product?._id}>
-            <ProductCard product={product} />
-          </Link>
-        ))}
+        {isLoading && <SkeletonSliderHomePage/>}
+
+        {!isLoading && (
+          similarProduct?.map((product) => (
+            <Link href={`/product-${mainCategory}/${product?.slug}`} key={product?._id}>
+              <ProductCard product={product} />
+            </Link>
+          )))
+        }
       </Carousel>
     </div>
   );
