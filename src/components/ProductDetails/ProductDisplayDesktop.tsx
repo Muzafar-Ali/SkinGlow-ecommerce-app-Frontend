@@ -135,11 +135,6 @@ const ProductDisplayDesktop = ({ product }: { product: CombinedSingleProductType
         </div>
         {/* value proposition ends */}
 
-        {/* <section className={`${showBranchesStock ? 'visible':'hidden'} absolute z-10 top-0 left-0 shadow-2xl`}>
-          <CheckBranchStockDesktop
-            setShowBranchesStock={setShowBranchesStock}
-          />
-        </section> */}
       </section>
 
     </div>

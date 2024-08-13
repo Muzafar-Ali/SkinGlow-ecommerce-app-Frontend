@@ -119,8 +119,8 @@ const CreateMakeupproduct = () => {
         <div className='flex items-center gap-x-4'>
           <label>cheek Makeup Category</label>
           <select 
-            id="categories.cheekMakeupCategory" 
-            {...register("categories.cheekMakeupCategory")}
+            id="categories.makeup.cheekMakeupCategory" 
+            {...register("categories.makeup.cheekMakeupCategory")}
             className='border rounded-md px-2 py-2'
           >
             <option value="">Select a category</option>
@@ -128,14 +128,14 @@ const CreateMakeupproduct = () => {
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
-          {errors['categories.cheekMakeupCategory'] && <span>This field is required</span>}
+          {errors['categories.makeup.cheekMakeupCategory'] && <span>This field is required</span>}
         </div>
     
         <div className='flex items-center gap-x-4'>
           <label>lips Makeup Category</label>
           <select 
-            id="categories.lipsMakeupCategor" 
-            {...register("categories.lipsMakeupCategor")}
+            id="categories.makeup.lipsMakeupCategory" 
+            {...register("categories.makeup.lipsMakeupCategory")}
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
@@ -143,14 +143,14 @@ const CreateMakeupproduct = () => {
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
-          {errors['categories.lipsMakeupCategor'] && <span>This field is required</span>}
+          {errors['categories.makeup.lipsMakeupCategory'] && <span>This field is required</span>}
         </div>
 
         <div className='flex items-center gap-x-4'>
           <label>eyes Makeup Category</label>
           <select 
-            id="categories.eyesMakeupCategory" 
-            {...register("categories.eyesMakeupCategory")}
+            id="categories.makeup.eyesMakeupCategory" 
+            {...register("categories.makeup.eyesMakeupCategory")}
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
@@ -158,14 +158,14 @@ const CreateMakeupproduct = () => {
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
-          {errors['categories.eyesMakeupCategory'] && <span>This field is required</span>}
+          {errors['categories.makeup.eyesMakeupCategory'] && <span>This field is required</span>}
         </div>
 
         <div className='flex items-center gap-x-4'>
           <label>featured Category</label>
           <select 
-            id="categories.featuredCategory" 
-            {...register("categories.featuredCategory")}
+            id="categories.makeup.featuredCategory" 
+            {...register("categories.makeup.featuredCategory")}
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
@@ -173,7 +173,7 @@ const CreateMakeupproduct = () => {
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
-          {errors['categories.featuredCategory'] && <span>This field is required</span>}
+          {errors['categories.makeup.featuredCategory'] && <span>This field is required</span>}
         </div>
         {/* Repeat similar input fields for other categories */}
         { !loading && (

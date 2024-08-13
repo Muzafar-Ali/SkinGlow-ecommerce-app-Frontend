@@ -263,29 +263,27 @@ const Search = ({
             )}
 
             { results.length > 0 && (
-
-            <Carousel
-              responsive={responsive}
-              swipeable={true}
-              draggable={true}
-              showDots={false}
-              itemClass='px-[5px] laptop-m:px-[10px]'
-              containerClass='py-2'
-              // centerMode={true} // centerMode={true} when you want to center items
-            >
-              {  results.length >= 1 && 
-                Array.from(results).map((product) => (
-                <Link href={`/product-${product?.categories?.makeup ? "makeup":"skincare"}/${product?.slug}`} key={product?.objectID} onClick={() => setIsSearchOpen(false)}>
-                  <SearchCard 
-                  title={product.title}
-                  thumbnail={product.thumbnail}
-                  description={product.productDetails?.description}
-                  price={product.price}
-                />
-                </Link>
-              ))}
-
-            </Carousel>
+              <Carousel
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                showDots={false}
+                itemClass='px-[5px] laptop-m:px-[10px]'
+                containerClass='py-2'
+                // centerMode={true} // centerMode={true} when you want to center items
+              >
+                { results.length >= 1 && 
+                  Array.from(results).map((product) => (
+                  <Link href={`/product-${product?.categories?.makeup ? "makeup":"skincare"}/${product?.slug}`} key={product?.objectID} onClick={() => setIsSearchOpen(false)}>
+                    <SearchCard 
+                      title={product.title}
+                      thumbnail={product.thumbnail}
+                      description={product.productDetails?.description}
+                      price={product.price}
+                    />
+                  </Link>
+                ))}
+              </Carousel>
             )}
           </div>
         </div>

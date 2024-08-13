@@ -224,21 +224,21 @@ interface ProductDetails {
 
 export interface Product {
   objectID: string;
-  categories?: { [key: string]: any }; // Optional, adjust if not always present
-  createdAt?: string;                  // Optional
-  images?: string[];                   // Optional
-  price?: number;                      // Optional
-  productDetails?: ProductDetails;    // Optional
-  slug?: string;                      // Optional
-  stock?: number;                     // Optional
-  tagline?: string;                   // Optional
-  thumbnail?: string;                // Optional
-  title?: string;                    // Optional
-  updatedAt?: string;                // Optional
-  _highlightResult?: any;            // Optional, adjust based on actual response
-  _snippetResult?: any;              // Optional, adjust based on actual response
-  _rankingInfo?: any;                // Optional, adjust based on actual response
-  _distinctSeqID?: number;           // Optional, adjust based on actual response
+  categories?: { [key: string]: any }; 
+  createdAt?: string;                  
+  images?: string[];                   
+  price?: number;                      
+  productDetails?: ProductDetails;    
+  slug?: string;                      
+  stock?: number;                     
+  tagline?: string;                 
+  thumbnail?: string;                
+  title?: string;                    
+  updatedAt?: string;                
+  _highlightResult?: any;            
+  _snippetResult?: any;              
+  _rankingInfo?: any;                
+  _distinctSeqID?: number;           
 }
 
 // Define the type for the array of search results

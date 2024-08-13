@@ -14,8 +14,9 @@ export const appendFormData = (formData: FormData, data: any) => {
   
     // Filter categories
     const filteredCategories = Object.fromEntries(
-      Object.entries(data.categories).filter(([key, value]) => value !== '')
+      Object.entries(data.categories.makeup).filter(([key, value]) => value !== '')
     );
+  console.log('filteredCategories', filteredCategories);
   
     // Append other data (title, tagline, price, etc.)
     formData.append('title', data.title);
@@ -28,9 +29,10 @@ export const appendFormData = (formData: FormData, data: any) => {
     formData.append('productDetails[ingredients]', data.productDetails.ingredients);
     formData.append('productDetails[howToApply]', data.productDetails.howToApply);
     formData.append('productDetails[features]', data.productDetails.features);
+    console.log('filteredCategories', filteredCategories);
     
-    //Append categpries
-    formData.append('categories', JSON.stringify(filteredCategories));
+    // Append filtered categories as a JSON string
+    formData.append('categories', JSON.stringify({ makeup: filteredCategories }));
     
   };
   
