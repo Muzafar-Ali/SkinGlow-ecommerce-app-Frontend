@@ -135,14 +135,12 @@ const YouMayLike = ({ product, isLoading }: YouMayLikeProps) => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {isLoading && <SkeletonSliderHomePage/>}
-
-        {!isLoading && (
+        {
           similarProduct?.map((product) => (
             <Link href={`/product-${mainCategory}/${product?.slug}`} key={product?._id}>
               <ProductCard product={product} />
             </Link>
-          )))
+          ))
         }
       </Carousel>
     </div>

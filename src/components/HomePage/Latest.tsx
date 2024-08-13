@@ -78,26 +78,28 @@ const Latest = () => {
       <div className="text-white text-xl tablet-s:text-2xl font-bold text-center mb-4 tablet-s:mb-[32px] capitalize leading-[33.60px]">
         Latest
       </div>
-      <Carousel
-        responsive={responsive}
-        arrows={false}
-        swipeable={true}
-        draggable={true}
-        itemClass="px-[5px] tablet-s:px-[10px]"
-        containerClass="mx-[25px] mobile-m:mx-[30px] mobile-l:mx-[35px] tablet-s:mx-[40px] tablet-m:mx-[60px] laptop-s:mx-[80px] laptop-m:mx-[90px] laptop-l:mx-[100px] py-2"
-        renderButtonGroupOutside={true}
-        customButtonGroup={<ButtonGroup />}
-      >
-        {isLoading && <SkeletonSliderHomePage/> }
+      {isLoading && <SkeletonSliderHomePage/> }
+      {!isLoading && (
+        <Carousel
+          responsive={responsive}
+          arrows={false}
+          swipeable={true}
+          draggable={true}
+          itemClass="px-[5px] tablet-s:px-[10px]"
+          containerClass="mx-[25px] mobile-m:mx-[30px] mobile-l:mx-[35px] tablet-s:mx-[40px] tablet-m:mx-[60px] laptop-s:mx-[80px] laptop-m:mx-[90px] laptop-l:mx-[100px] py-2"
+          renderButtonGroupOutside={true}
+          customButtonGroup={<ButtonGroup />}
+        >
 
-        {!isLoading && (
-          latest?.map((product) => (
-            <Link href={createURL(product)} key={product?._id}>
-              <ProductCard product={product} />
-            </Link>
-          ))
-        )}
-      </Carousel>
+          {
+            latest?.map((product) => (
+              <Link href={createURL(product)} key={product?._id}>
+                <ProductCard product={product} />
+              </Link>
+            ))
+          }
+        </Carousel>
+      )}
     </div>
   );
 };

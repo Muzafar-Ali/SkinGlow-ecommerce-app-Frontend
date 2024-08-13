@@ -76,6 +76,8 @@ const BestSellers = () => {
       <div className="text-neutral-950 text-xl tablet-s:text-2xl font-bold text-center mb-4 tablet-s:mb-[32px] capitalize leading-[33.60px]">
         Our Best Sellers
       </div>
+      {isLoading && <SkeletonSliderHomePage/> }
+      {!isLoading && (
         <Carousel
           responsive={responsive}
           arrows={false}
@@ -86,7 +88,6 @@ const BestSellers = () => {
           renderButtonGroupOutside={true}
           customButtonGroup={<ButtonGroup />}
         >
-          {isLoading && <SkeletonSliderHomePage/> }
 
           {!isLoading && (
             bestSeller?.map((product) => (
@@ -97,6 +98,8 @@ const BestSellers = () => {
           )}
           
         </Carousel>
+
+      )}
     </Wrapper>
   );
 };
