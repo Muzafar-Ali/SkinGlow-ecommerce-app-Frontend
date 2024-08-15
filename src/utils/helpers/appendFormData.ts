@@ -1,5 +1,5 @@
 
-export const appendFormData = (formData: FormData, data: any) => {
+export const appendFormData = (formData: FormData, data: any, category:string) => {
   
     // Convert the FileList to an array of files
     const files = Array.from(data.images) as File[];
@@ -11,13 +11,7 @@ export const appendFormData = (formData: FormData, data: any) => {
     if (thumbnail.length > 0) {
       formData.append('thumbnail', thumbnail[0]);
     }
-  
-    // Filter categories
-    const filteredCategories = Object.fromEntries(
-      Object.entries(data.categories.makeup).filter(([key, value]) => value !== '')
-    );
-  console.log('filteredCategories', filteredCategories);
-  
+      
     // Append other data (title, tagline, price, etc.)
     formData.append('title', data.title);
     formData.append('tagline', data.tagline);
@@ -29,10 +23,31 @@ export const appendFormData = (formData: FormData, data: any) => {
     formData.append('productDetails[ingredients]', data.productDetails.ingredients);
     formData.append('productDetails[howToApply]', data.productDetails.howToApply);
     formData.append('productDetails[features]', data.productDetails.features);
-    console.log('filteredCategories', filteredCategories);
     
-    // Append filtered categories as a JSON string
-    formData.append('categories', JSON.stringify({ makeup: filteredCategories }));
+    let filteredCategories = {};
+
+    if(category === "skincare"){
+      // Filter categories
+      filteredCategories = Object.fromEntries(
+        Object.entries(data.categories.skincare).filter(([key, value]) => value !== '')
+      );
+    }
+    
+    if(category === "makeup"){
+      // Filter categories
+      filteredCategories = Object.fromEntries(
+        Object.entries(data.categories.makeup).filter(([key, value]) => value !== '')
+      );
+    }
+    
+    if(category === "makeup"){
+      // Append filtered categories as a JSON string
+      formData.append('categories', JSON.stringify({ makeup: filteredCategories }));
+    }
+    if(category === "skincare"){
+      // Append filtered categories as a JSON string
+      formData.append('categories', JSON.stringify({ skincare: filteredCategories }));
+    }
     
   };
   

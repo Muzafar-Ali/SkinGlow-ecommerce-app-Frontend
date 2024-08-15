@@ -49,8 +49,8 @@ const Latest = () => {
 
         // Make multiple fetch requests
         const latestProducts = await Promise.all([
-          fetch(`${config.baseUri}/v1/makeup/category/featured/latest`),
           fetch(`${config.baseUri}/v1/skincare/category/featured/latest`),
+          fetch(`${config.baseUri}/v1/makeup/category/featured/latest`),
         ]);
 
         // Handle successful response
