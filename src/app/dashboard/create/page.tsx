@@ -29,7 +29,7 @@ const CreateMakeup = () => {
     const formData = new FormData();
    
     // Append data using the function
-    const data1 = appendFormData(formData, data);
+    const data1 = appendFormData(formData, data, "makeup");
        
     try {
       setLoading(true)
