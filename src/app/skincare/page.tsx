@@ -42,7 +42,6 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
   useEffect(() => {
 
     if(categoryTitle){
-      console.log('categoryTitle', categoryTitle);
       
       const category = skincareCategories.map((item) => item.slug)
       const skin_condition = skinConditionCategories.map((item) => item.slug)
