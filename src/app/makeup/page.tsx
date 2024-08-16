@@ -7,14 +7,16 @@ import MakeupProducts from '@/components/Makeup/MakeupProducts'
 import SkeletonFilterOptions from '@/components/Makeup/SkeletonMakeup/SkeletonFilterOptions'
 import SkeletonMakeupPage from '@/components/Makeup/SkeletonMakeup/SkeletonMakeupPage'
 import Wrapper from '@/components/Wrapper'
+import config from '@/config/config'
 import { useFetchCategories } from '@/hooks/useFetchCategories'
 import { filterOutProductsMakeup } from '@/utils/helpers/filterOutProductsMakeup'
 import { CategoryType, MakeupProductType } from '@/utils/types'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { MdOutlineArrowForwardIos, MdTune } from 'react-icons/md'
 
-const MakeupProductPage = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
+
+const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
   
   const [products, setProducts] = useState<MakeupProductType[]>([])
 
@@ -35,30 +37,39 @@ const MakeupProductPage = () => {
   const [featuredFilters, setFeaturedFilters] = useState<string[]>([])
   const [makeupPriceFilters, setMakeupPriceFilters] = useState<string[]>([])
   
-  // when user selects category in navigation bar, this function segreates category and auto selects and save in 
-  // particular category for further filter
-  // useEffect(() => {
+  // This mechanism allows for dynamic filtering of products based on the user's selection from navbar menu,
+  // enabling a more personalized shopping experience.
+  useEffect(() => {
 
-  //   if(categoryTitle){
-      
-  //     if(cheek?.includes(categoryTitle)){
-  //       setCheekFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
-      
-  //     if(lips?.includes(categoryTitle)){
-  //       setLipsFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
-      
-  //     if(eyes?.includes(categoryTitle)){
-  //       setEyesFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
+    if(categoryTitle){
 
-  //     if(featuredMakeup?.includes(categoryTitle)){
-  //       setFeaturedFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
-  //   }
+      const cheek = cheekCategories.map((item) => item.slug)
+      const lips = lipCategories.map((item) => item.slug)
+      const eyes = eyeCategories.map((item) => item.slug)
+      const featuredMakeup = featuredCategories.map((item) => item.slug)
+      
+      if(cheek?.includes(categoryTitle)){
+        const cheekId = cheekCategories.find((item) => item?.slug === categoryTitle)       
+        setCheekFilters([cheekId?._id.toLowerCase().split(' ').join('-')!])
+      }
+      
+      if(lips?.includes(categoryTitle)){
+        const lipsId = lipCategories.find((item) => item?.slug === categoryTitle)
+        setLipsFilters([lipsId?._id.toLowerCase().split(' ').join('-')!])
+      }
+
+      if(eyes?.includes(categoryTitle)){
+        const eyesId = eyeCategories.find((item) => item?.slug === categoryTitle)
+        setEyesFilters([eyesId?._id.toLowerCase().split(' ').join('-')!])
+      }
+
+      if(featuredMakeup?.includes(categoryTitle)){
+        const featuredId = featuredCategories.find((item) => item?.slug === categoryTitle)
+        setFeaturedFilters([featuredId?._id.toLowerCase().split(' ').join('-')!])
+      }
+    }
     
-  // },[categoryTitle])
+  },[categoryTitle, cheekCategories, lipCategories, eyeCategories, featuredCategories])
 
   // state used for applied filters to display and remove
   const originalCheekFilters = cheekFilters;
@@ -69,7 +80,7 @@ const MakeupProductPage = () => {
 
   const appliedFilters = [...cheekFilters, ...lipsFilters, ...eyesFilters, ...featuredFilters];
 
-  // Function to remove a filter from appliedFilters and its respective variable
+  // Clears filters from the applied filters state and their original states.
   const clearFilters = (removeFilter: string) => {
 
     if (removeFilter === 'all') {
@@ -99,9 +110,18 @@ const MakeupProductPage = () => {
   };
   
    
-  // Function to handle filter selection changes (add, remove)
+  // Handles changes to makeup filter selections, allowing users to add or remove filters based on their preferences from the available filter options.
   const handleMakeupFiltersChange = ( filterType: string, filtersValue: string ) => {
 
+    /**
+     * Processes changes to the 'cheek' filter based on the provided filter value.
+     * 
+     * - If the filter value already exists in the current list of 'cheek' filters, it is removed to avoid duplication.
+     * - If the filter value does not exist in the list, it is added to allow for a broader search or to update the filter criteria.
+     * 
+     * This conditional handling ensures that the 'cheek' filter list remains relevant and accurate to the user's current preferences,
+     * optimizing the product display based on the selected filter values.
+     */
     if(filterType === 'cheek'){
       // If it does exist, remove it from the list to prevent duplicates
       if(cheekFilters?.includes(filtersValue)){
@@ -149,7 +169,7 @@ const MakeupProductPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${BASEURL}/v1/makeup/all`,{
+        const res = await fetch(`${config.baseUri}/v1/makeup/all`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -164,13 +184,13 @@ const MakeupProductPage = () => {
       }
     }
     fetchProducts()
-  }, [BASEURL])
+  }, [])
 
   // Fetch categories for each type of makeup
-  useFetchCategories(`${BASEURL}/v1/makeup/category/lips/all`, setLipsCategories);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/eyes/all`, setEyesCategories);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/cheek/all`, setCheekCategories)
-  useFetchCategories(`${BASEURL}/v1/makeup/category/featured/all`, setFeaturedCategories)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipsCategories);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyesCategories);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategories)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategories)
   
   // function to display products based on filter Selection
   const filteredProducts: MakeupProductType[] = filterOutProductsMakeup(
@@ -184,6 +204,7 @@ const MakeupProductPage = () => {
     featuredFilters,
     makeupPriceFilters,
   )
+console.log('cheekCategories', cheekCategories);
 
   return (
     <Wrapper className='px-[20px] w-full'>

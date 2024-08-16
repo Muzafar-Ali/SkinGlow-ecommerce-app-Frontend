@@ -21,9 +21,7 @@ const AppliedFiltersDisplay = ({ appliedFilters, clearFilters }: AppliedFiltersD
               <div className="text-neutral-950 text-xs tablet-m:text-sm font-normal capitalize leading-none tablet-m:leading-[25.20px]">{value}</div>
               <div className='bg-white'>
                 <GrFormClose className="w-[18px] h-[18px] cursor-pointer" onClick={() => clearFilters(value)} />
-
               </div>
-              
             </div>
           ))
         }

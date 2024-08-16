@@ -15,7 +15,7 @@ import SkeletonProductDisplayMobile from '@/components/ProductDetails/SkeletonPr
 import SkeletonProductDescriptionDesktop from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionDesktop';
 import SkeletonProductDescriptionMobile from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionMobile';
 
-const ProductaDetailsSkincare = () => {
+const ProductaDetailsPageSkincare = () => {
   const { slug } = useParams()
   const [product, setProduct] = useState<CombinedSingleProductType[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -115,4 +115,4 @@ const ProductaDetailsSkincare = () => {
   )
 }
 
-export default ProductaDetailsSkincare
+export default ProductaDetailsPageSkincare

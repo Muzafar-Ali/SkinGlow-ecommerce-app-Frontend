@@ -4,6 +4,7 @@ import { CategoryType } from '@/utils/types';
 import { useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai';
 import Link from 'next/link';
+import config from '@/config/config';
 
 type MakeUpMobileMenuProps = {
   isLips: boolean;
@@ -28,17 +29,15 @@ setIsEye,
 isEye,
 }: MakeUpMobileMenuProps) => {
 
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
-
   const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);
   const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
   const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
   const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   
-  useFetchCategories(`${BASEURL}/v1/makeup/category/lips/all`, setLipCategory);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/eyes/all`, setEyeCategory);
-  useFetchCategories(`${BASEURL}/v1/makeup/category/cheek/all`, setCheekCategory)
-  useFetchCategories(`${BASEURL}/v1/makeup/category/featured/all`, setFeaturedCategory)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipCategory);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyeCategory);
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategory)
+  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategory)
   
   return (
     <div className={`${isSelected?.includes(('women makeup')) ? 'inline-block':'hidden'}`}>
@@ -67,7 +66,7 @@ isEye,
             onClick={() => setIsDropDown(false)}
             className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isCheek ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
+              <Link href={`/makeup/category/${item.slug}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -88,7 +87,7 @@ isEye,
               onClick={() => setIsDropDown(false)}
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isLips ? 'inline-flex':'hidden'}`}
             >
-              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
+              <Link href={`/makeup/category/${item.slug}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -109,7 +108,7 @@ isEye,
               onClick={() => setIsDropDown(false)}
               className={`pl-16 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full ${isEye ? 'inline-flex':'hidden'} transition-all duration-500 ease-in-out`}
             >
-              <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
+              <Link href={`/makeup/category/${item.slug}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent capitalize">{item.name}</Link>
             </div> 
           ))}
         </div>
@@ -124,7 +123,7 @@ isEye,
             onClick={() => setIsDropDown(false)}
             className={`pl-10 h-10 px-2 py-4 bg-white border-t border-b border-neutral-200 justify-start items-center gap-1 w-full inline-flex transition-all duration-500 ease-in-out`}
           >
-            <Link href={`/makeup/${item.name}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent">{item.name}</Link>
+            <Link href={`/makeup/category/${item.slug}`} className="grow shrink basis-0 text-neutral-700 text-sm font-normal leading-tight bg-transparent">{item.name}</Link>
           </div> 
         ))}
       </div>

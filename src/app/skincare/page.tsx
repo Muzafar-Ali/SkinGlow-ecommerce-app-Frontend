@@ -16,7 +16,8 @@ import { MdOutlineArrowForwardIos, MdTune } from "react-icons/md";
 
 
 
-const WomenSkinCare = () => {
+const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
+
   const [products, setProducts] = useState<SkinCareProductType[]>([])
 
   const [isMobileDropDown, setIsMobileDropDown] = useState(false)
@@ -36,26 +37,36 @@ const WomenSkinCare = () => {
 
 
   
-  // // when user selects category in navigation bar, this function segreates category and auto selects and save in particular category for further filter
-  // useEffect(() => {
+  // This mechanism allows for dynamic filtering of products based on the user's selection from navbar menu,
+  // enabling a more personalized shopping experience.
+  useEffect(() => {
 
-  //   if(categoryTitle){
+    if(categoryTitle){
+      console.log('categoryTitle', categoryTitle);
       
-  //     if(skin_condition?.includes(categoryTitle)){
-  //       setSkinConditionFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
-    
-  //     if(category?.includes(categoryTitle)){
-  //       setCategoryFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
+      const category = skincareCategories.map((item) => item.slug)
+      const skin_condition = skinConditionCategories.map((item) => item.slug)
+      const featured = featuredCategories.map((item) => item.slug)
       
-  //     if(featured?.includes(categoryTitle)){
-  //       setFeaturedFilters([categoryTitle.toLowerCase().split(' ').join('-')])
-  //     }
-  //   }
+      if(category?.includes(categoryTitle)){
+        const categoryId = skincareCategories.find((item) => item?.slug === categoryTitle)
+        setCategoryFilters([categoryId?._id.toLowerCase().split(' ').join('-')!])
+      }
+
+      if(skin_condition?.includes(categoryTitle)){
+        const skinConditionId = skinConditionCategories.find((item) => item?.slug === categoryTitle)
+        setSkinConditionFilters([skinConditionId?._id.toLowerCase().split(' ').join('-')!])
+      }
+
+
+      if(featured?.includes(categoryTitle)){
+        const featuredId = featuredCategories.find((item) => item?.slug === categoryTitle)
+        setFeaturedFilters([featuredId?._id.toLowerCase().split(' ').join('-')!])
+      }
+    }
     
 
-  // },[categoryTitle])
+  },[categoryTitle, skincareCategories, skinConditionCategories, skinConditionCategories])
 
 
   // state used for applied filters to display and remove
@@ -66,7 +77,7 @@ const WomenSkinCare = () => {
 
   const appliedFilters = [...skincareCategoryFilters, ...skinConditionFilters, ...featuredFilters];
 
-  // Function to remove a filter from appliedFilters and its respective variable
+  // Clears filters from the applied filters state and their original states.
   const clearFilters = (removeFilter: string) => {
 
     if (removeFilter === 'all') {
@@ -89,11 +100,19 @@ const WomenSkinCare = () => {
       setFeaturedFilters(featuredFilters.filter(filter => filter !== removeFilter));
     }
   };
-  // write code for me for color filter 
   
-    // Function to handle filter selection changes (add, remove)
+  // Handles changes to makeup filter selections, allowing users to add or remove filters based on their preferences from the available filter options.
   const handleSkincareFiltersChange = ( filterType: string, filtersValue: string ) => {
 
+        /**
+     * Processes changes to the 'skincare' filter based on the provided filter value.
+     * 
+     * - If the filter value already exists in the current list of 'skincare' filters, it is removed to avoid duplication.
+     * - If the filter value does not exist in the list, it is added to allow for a broader search or to update the filter criteria.
+     * 
+     * This conditional handling ensures that the 'skincare' filter list remains relevant and accurate to the user's current preferences,
+     * optimizing the product display based on the selected filter values.
+     */
     if(filterType === 'skincare'){
       // If it does exist, remove it from the list to prevent duplicates
       if(skincareCategoryFilters?.includes(filtersValue)){
@@ -114,7 +133,6 @@ const WomenSkinCare = () => {
     }
     
     if(filterType === 'featured'){
-      // if filter value already exists then don't add the same value again
       if(featuredFilters?.includes(filtersValue)){
         setFeaturedFilters(featuredFilters.filter((value) => value !== filtersValue))
       }else{
@@ -123,7 +141,6 @@ const WomenSkinCare = () => {
     }
     
     if(filterType === 'price'){
-      // if filter value already exists then don't add the same value again
       if(skincarePriceFilters?.includes(filtersValue)){
         setSkincarePriceFilters(skincarePriceFilters.filter((value) => value !== filtersValue))
       }else{
@@ -265,10 +282,10 @@ const WomenSkinCare = () => {
         {/* Rigth side product cards starts*/}
         { filteredProducts?.length === 0 && <SkeletonMakeupPage />}
 
-        { filteredProducts?.length > 0 &&   <SkincareProduct products = {filteredProducts} />}
+        { filteredProducts?.length > 0 &&  <SkincareProduct products = {filteredProducts} />}
       </section>
     </Wrapper>
   )
 }
 
-export default WomenSkinCare
+export default SkincareProductPage

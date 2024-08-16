@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import SkeletonProductDescriptionDesktop from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionDesktop';
 import SkeletonProductDescriptionMobile from '@/components/ProductDetails/SkeletonProductDetails/SkeletonProductDescriptionMobile';
 
-const ProductaDetailsMakeup = () => {;
+const ProductaDetailsPageMakeup = () => {;
   const { slug } = useParams()
   const [product, setProduct] = useState<CombinedSingleProductType[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -115,4 +115,4 @@ const ProductaDetailsMakeup = () => {;
   )
 }
 
-export default ProductaDetailsMakeup
+export default ProductaDetailsPageMakeup

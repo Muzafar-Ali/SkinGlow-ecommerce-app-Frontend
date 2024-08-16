@@ -14,7 +14,8 @@ type SkincareDesktopMenuProps = {
   handleLinkClick: () => void;
 }
 
-const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkClick }: SkincareDesktopMenuProps) => {
+const SkincarepMenuDesktop = ( { dropdownStates, index, menuCategory,  handleLinkClick }: SkincareDesktopMenuProps ) => {
+
   const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
   const [skinCareCategory, setSkinCareCategory] = useState<CategoryType[]>([]);
   const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);
@@ -53,7 +54,7 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
       <div className='flex flex-col gap-1 capitalize'>
         {featuredCategory?.map((items) => (
           <Link
-            href={`/skincare`}
+            href={`/skincare/category/${items.slug}`}
             key={items._id}
             onClick={handleLinkClick}
           >
@@ -67,7 +68,7 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Category</h2>
           {skinCareCategory.map((items) => (
             <Link
-              href={`/skincare`}
+              href={`/skincare/category/${items.slug}`}
               key={items._id}
               onClick={handleLinkClick}
             >
@@ -81,7 +82,7 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Skin Conditions</h2>
         {skinConditionCategory.map((items) => (
           <Link 
-            href={`/skincare`}
+            href={`/skincare/category/${items.slug}`}
             key={items._id}
             onClick={handleLinkClick}
           > 
@@ -95,7 +96,7 @@ const SkincarepMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLink
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Collection</h2>
         {collection.map((item) => (
           <Link 
-            href={`/skincare`}
+            href={`/product-skincare/${item.slug}`}
             key={item._id}
             onClick={handleLinkClick}
           > 

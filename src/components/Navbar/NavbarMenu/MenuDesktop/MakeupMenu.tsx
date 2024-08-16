@@ -36,7 +36,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
       <div className='flex flex-col gap-1 capitalize'>
         {featuredCategory?.map((items) => (
           <Link
-            href={`/skincare`}
+            href={`/makeup/category/${items.slug}`}
             key={items._id}
             onClick={handleLinkClick}
           >
@@ -50,7 +50,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Cheek</h2>
           {cheekCategory.map((items) => (
             <Link
-              href={`/skincare`}
+              href={`/makeup/category/${items.slug}`}
               key={items._id}
               onClick={handleLinkClick}
             >
@@ -64,7 +64,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Eyes</h2>
         {eyeCategory.map((items) => (
           <Link 
-            href={`/skincare`}
+            href={`/makeup/category/${items.slug}`}
             key={items._id}
             onClick={handleLinkClick}
           > 
@@ -78,7 +78,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Lips</h2>
         {lipCategory.map((items) => (
           <Link 
-            href={`/skincare`}
+            href={`/makeup/category/${items.slug}`}
             key={items._id}
             onClick={handleLinkClick}
           > 

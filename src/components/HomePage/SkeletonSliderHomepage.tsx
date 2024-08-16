@@ -1,33 +1,35 @@
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
 
-const SkeletonSliderHomePage = () => {
-  const mobileSmall = [1, 2]; // 320
-  const mobileMedium = [1, 2]; // 375
-  const mobilelarge = [1, 2]; // 425
-  const tabletSmall = [1, 2, 3]; // 600
-  const tabletMedium = [1, 2, 3]; // 768
-  const laptopSmall = [1, 2, 3, 4]; // 1024
-  const laptopMedium = [1, 2, 3]; // 1200
-  const laptopLarge = [1, 2, 3, 4]; // 1024
+const screen = {
+ mobileSmall : [1, 2], // 320
+ mobileMedium: [1, 2], // 375
+ mobilelarge : [1, 2], // 425
+ tabletSmall : [1, 2, 3], // 600
+ tabletMedium: [1, 2, 3], // 768
+ laptopSmall : [1, 2, 3, 4], // 1024
+ laptopMedium: [1, 2, 3], // 1200
+ laptopLarge : [1, 2, 3, 4], 
+}
 
+const SkeletonSliderHomePage = () => {
 
   const [currentArray, setCurrentArray] = useState<number[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1440) {
-        setCurrentArray(laptopLarge);
+        setCurrentArray(screen.laptopLarge);
       } else if (window.innerWidth >= 1200){
-        setCurrentArray(laptopSmall);
+        setCurrentArray(screen.laptopSmall);
       } else if (window.innerWidth >= 1024) {
-        setCurrentArray(laptopSmall);
+        setCurrentArray(screen.laptopSmall);
       } else if (window.innerWidth >= 768) {
-        setCurrentArray(tabletMedium);
+        setCurrentArray(screen.tabletMedium);
       } else if (window.innerWidth >= 550) {
-        setCurrentArray(tabletSmall);
+        setCurrentArray(screen.tabletSmall);
       } else {
-        setCurrentArray(mobileSmall);
+        setCurrentArray(screen.mobileSmall);
       }
     };
 
@@ -39,8 +41,6 @@ const SkeletonSliderHomePage = () => {
     // Remove event listener on cleanup
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  console.log('currentArray', currentArray);
   
   return (
     <div className="flex flex-row items-center justify-between mx-[25px] mobile-m:mx-[30px] mobile-l:mx-[35px] tablet-s:mx-[40px] tablet-m:mx-[60px] laptop-s:mx-[80px]  laptop-l:mx-[100px] py-2">
