@@ -204,7 +204,6 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
     featuredFilters,
     makeupPriceFilters,
   )
-console.log('cheekCategories', cheekCategories);
 
   return (
     <Wrapper className='px-[20px] w-full'>
