@@ -2,8 +2,8 @@ export type CategoryType = {
   _id: string;
   name: string;
   slug: string;
-  products: string[];
   __v: number;
+  products: string[];
 };
 
 export type SkinCareProductType = {

@@ -48,7 +48,7 @@ const Footer = () => {
         <div className='inline-flex flex-col items-start'>
           <h2 className="text-start  text-white text-base tablet-m:text-2xl font-bold capitalize leading-snug tablet-m:leading-[33.60px] mb-[16px]">How can we Help?</h2>
           <div className='inline-flex flex-col justify-center items-start gap-2  '>
-            <Link href={'/branches'} className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 '>beautya branches</Link>
+            <Link href={'/branches'} className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 '>Skinglow branches</Link>
             <Link href={'/blogs'} className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 '>Blog</Link>
             <p className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 '>Contact Us</p>
             <p className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 '>FAQ</p>
@@ -64,9 +64,9 @@ const Footer = () => {
           </div>
         </div>
         <div className='bg-rose-950 inline-flex flex-col items-start laptop-s:max-w-[450px] laptop-l:max-w-[600px]'>
-          <h2 className="text-center text-white text-base tablet-m:text-2xl font-bold capitalize leading-snug tablet-m:leading-[33.60px] mb-[16px]">keep in touch with beautya</h2>
+          <h2 className="text-center text-white text-base tablet-m:text-2xl font-bold capitalize leading-snug tablet-m:leading-[33.60px] mb-[16px]">keep in touch with Skinglow</h2>
           <div className='inline-flex flex-col justify-center items-start gap-2 w-full '>
-            <p className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 w-full'>Join the Beautya newsletter and be first to hear about news, offers and skincare advice</p>
+            <p className='text-white text-sm tablet-m:text-base font-normal capitalize leading-tight tablet-m:leading-7 w-full'>Join the Skinglow newsletter and be first to hear about news, offers and skincare advice</p>
             <div className='inline-flex flex-col laptop-s:flex-row items-baseline gap-4 w-full bg-red-950 relative'>
               <input
                 type='email'
@@ -84,7 +84,7 @@ const Footer = () => {
                 className={`${isActive ?'bg-white ring-inset ring-1 ring-black ':''} w-4 h-4 rounded-sm border-2 hover:border-[3px] border-white cursor-pointer bg-transparent`}
                 onClick={() => setIsActive((prev) => !prev)}
               />
-              <p className='text-white text-xs tablet-m:text-sm font-normal capitalize leading tablet-m:leading-[25.20px]'>By submitting your email, you agree to receive advertising emails from Beautya. Please review our Privacy Policy, which includes our Financial Incentive Notice for CA residents.</p>
+              <p className='text-white text-xs tablet-m:text-sm font-normal capitalize leading tablet-m:leading-[25.20px]'>By submitting your email, you agree to receive advertising emails from Skinglow. Please review our Privacy Policy, which includes our Financial Incentive Notice for CA residents.</p>
             </div>
             {/* Mobile button */}
             <button className='laptop-s:hidden text-white border-2 border-white opacity-60 w-full capitalize h-12 px-4'>
@@ -148,7 +148,7 @@ const Footer = () => {
       <section className='flex flex-col tablet-m:flex-row items-start tablet-m:items-center justify-between px-[20px] tablet-m:px-[54px] laptop-s:px-[108px] bg-stone-950 h-14'>
         <div className="w-[257px] h-6 justify-start items-center gap-2 inline-flex">
           <div className=" text-white" >&#169;</div>
-          <div className="text-stone-300 text-xs font-semibold tracking-wide">2023 Beautya. All Rights Reserved.</div>
+          <div className="text-stone-300 text-xs font-semibold tracking-wide">2023 Skinglow. All Rights Reserved.</div>
         </div>
 
         <div className="h-[22px] justify-start items-start gap-6 inline-flex">

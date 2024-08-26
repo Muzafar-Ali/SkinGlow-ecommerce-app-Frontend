@@ -1,15 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { CombinedSingleProductType } from "@/utils/types";
+import { Skeleton } from "../ui/skeleton";
 import Link from "next/link";
 import ButtonGroup from "../ButtonGroup";
 import ProductCard from "../ProductCard";
-import SkeletonSliderHomePage from "../HomePage/SkeletonSliderHomepage";
 import config from "@/config/config";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Skeleton } from "../ui/skeleton";
 
 type YouMayLikeProps = {
   product: CombinedSingleProductType;
@@ -26,6 +25,7 @@ const YouMayLike = ({ product, isLoading }: YouMayLikeProps) => {
   
   useEffect(()=> {
     const fetchSimilarProducts = async (product: CombinedSingleProductType) => {
+      
       const category = 
       product?.categories?.makeup?.cheekMakeupCategory || 
       product?.categories?.makeup?.eyesMakeupCategory ||
@@ -72,12 +72,12 @@ const YouMayLike = ({ product, isLoading }: YouMayLikeProps) => {
             'Content-Type': 'application/json',
           },
         });
-    
+        
         if (!response.ok) throw new Error(`Failed to fetch similar products: ${response.statusText}`);
 
         const data = await response.json();
         const similarProducts = data.category?.flatMap((item: any) => item.products) || [];
-
+          
         setSimilarProducts(similarProducts);
       } catch (error) {
         console.error('Error fetching similar products:', error);
@@ -87,7 +87,6 @@ const YouMayLike = ({ product, isLoading }: YouMayLikeProps) => {
     fetchSimilarProducts(product);
 
   },[])
-
   
   const responsive = {
     laptopLarge: {
