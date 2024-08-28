@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import NavbarDesktop from "@/components/Navbar/NavbarDesktop";
 import Footer from "@/components/Footer";
 import OnlineChat from "@/components/OnlineChat";
 import NavbarMobile from "@/components/Navbar/NavbarMobile";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <OnlineChat/>
+        <SpeedInsights />
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!} />
     </html>
