@@ -1,5 +1,5 @@
 "use client"
-import { useCart } from '@/store/store'
+import { useCartItems } from '@/stores/cartItemsStore'
 import { useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { TbCurrencyDollar } from 'react-icons/tb'
@@ -18,9 +18,9 @@ const Cart = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const cartItems = useCart((state) => state.cartItems );
-  const removeItem = useCart((state) => state.removeItem);
-  const updateCartItems = useCart((state) => state.updateCartItems);
+  const cartItems = useCartItems((state) => state.cartItems );
+  const removeItem = useCartItems((state) => state.removeItem);
+  const updateCartItems = useCartItems((state) => state.updateCartItems);
   const totalAmount = cartItems.reduce((acc, item) => acc + item?.price, 0);
 
   const updateQuantity = (product: CartProductType, e: React.ChangeEvent<HTMLSelectElement>) => {
