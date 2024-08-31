@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NavbarDesktop />
-        {/* <NavbarMobile/> */}
+        <NavbarMobile/>
         {children}
         <Footer />
         <OnlineChat/>
