@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai'
 import Link from 'next/link'
 import config from '@/config/config'
+import useCategoryDataStore from '@/stores/categoryDataStore'
 
 
 type SkincareMobileMenuProps = { 
@@ -30,15 +31,9 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
   setIsDropDown
 }) => {
 
-  const [skincareCategory, setSkincareCategory] = useState<CategoryType[]>([]);
-  const [skinConditionCategory, setskinConditionCategory] = useState<CategoryType[]>([]);
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
+  const { categories } = useCategoryDataStore();
   const [collection, setCollection] = useState<SkinCareProductType[]>([]);
   
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkincareCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setskinConditionCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory);
-
   useEffect(() => {
     const getCollection = async () => {
       try {
@@ -79,7 +74,7 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
           <AiOutlineCaretRight className={`${isCategoryOpen ? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { skincareCategory?.map((item, index) => (
+          { categories.skincare?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)} 
@@ -99,7 +94,7 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
           <AiOutlineCaretRight className={`${isSkinConditionCategoryOpen ? "rotate-90": ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { skinConditionCategory.map((item, index) => (
+          { categories.skinCondition.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)} 
@@ -137,7 +132,7 @@ const SkincareMobileMenu:FC<SkincareMobileMenuProps> = ({
 
       {/* featured categories starts */}
       <div>
-        { featuredCategory?.map((item, index) => (
+        { categories.featuredSkincare?.map((item, index) => (
           <div 
             key={index}
             onClick={() => setIsDropDown(false)} 

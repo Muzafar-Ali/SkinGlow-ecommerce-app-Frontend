@@ -1,5 +1,5 @@
 "use client"
-import { useCart } from "@/store/store";
+import { useCartItems } from "@/stores/cartItemsStore";
 import { useState } from "react";
 import { GrLanguage } from "react-icons/gr";
 import { MdOutlineSearch } from "react-icons/md";
@@ -10,7 +10,7 @@ import Search from "@/components/Search/Search";
 const SearchAndCart = () => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
-  const itemsCart = useCart((state) => state.cartItems);
+  const itemsCart = useCartItems((state) => state.cartItems);
   const totalCartItems = itemsCart.reduce((total, item) => total + item.quantity, 0) 
 
   return (

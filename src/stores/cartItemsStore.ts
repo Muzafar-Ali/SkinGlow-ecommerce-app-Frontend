@@ -1,4 +1,3 @@
-
 import { CartProductType } from "@/utils/types";
 import { create } from "zustand";
 
@@ -15,7 +14,7 @@ export type FilterSelection = {
 };
 
 
-export const useCart = create<CartType>((set) => ({
+export const useCartItems = create<CartType>((set) => ({
   
   cartItems: [],
 

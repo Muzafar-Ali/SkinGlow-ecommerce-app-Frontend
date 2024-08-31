@@ -9,14 +9,16 @@ import SkincareProduct from "@/components/Skincare/SkincareProduct";
 import Wrapper from "@/components/Wrapper";
 import config from "@/config/config";
 import { useFetchCategories } from "@/hooks/useFetchCategories";
+import useCategoryDataStore from "@/stores/categoryDataStore";
 import { filterOutProductsSkincare } from "@/utils/helpers/filterOutProductsSkincare";
 import { CategoryType, SkinCareProductType } from "@/utils/types";
 import { useEffect, useState } from "react";
 import { MdOutlineArrowForwardIos, MdTune } from "react-icons/md";
 
 
-
 const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
+
+  const { categories, fetchCategories } = useCategoryDataStore();
 
   const [products, setProducts] = useState<SkinCareProductType[]>([])
 
@@ -24,10 +26,6 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
   const [isOutOfStock, setIsOutOfStock] = useState(true)
   const [displaySortFilterValue, setDisplaySortFilterValue] = useState<string>('recommended')
   
-  // State variables for storing categories to display 
-  const [skincareCategories, setSkincareCategories] = useState<CategoryType[]>([])
-  const [skinConditionCategories, setSkinConditionCategories] = useState<CategoryType[]>([])
-  const [featuredCategories, setFeaturedCategories] = useState<CategoryType[]>([])
   
   // State variables for storing selected filters for each category
   const [skincareCategoryFilters, setCategoryFilters] = useState<string[]>([])
@@ -35,37 +33,35 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
   const [skincarePriceFilters, setSkincarePriceFilters] = useState<string[]>([])
   const [featuredFilters, setFeaturedFilters] = useState<string[]>([])
 
-
-  
   // This mechanism allows for dynamic filtering of products based on the user's selection from navbar menu,
   // enabling a more personalized shopping experience.
   useEffect(() => {
 
     if(categoryTitle){
       
-      const category = skincareCategories.map((item) => item.slug)
-      const skin_condition = skinConditionCategories.map((item) => item.slug)
-      const featured = featuredCategories.map((item) => item.slug)
+      const category = categories.skincare.map((item) => item.slug)
+      const skin_condition = categories.skinCondition.map((item) => item.slug)
+      const featured = categories.featuredSkincare.map((item) => item.slug)
       
       if(category?.includes(categoryTitle)){
-        const categoryId = skincareCategories.find((item) => item?.slug === categoryTitle)
+        const categoryId = categories.skincare.find((item) => item?.slug === categoryTitle)
         setCategoryFilters([categoryId?._id.toLowerCase().split(' ').join('-')!])
       }
 
       if(skin_condition?.includes(categoryTitle)){
-        const skinConditionId = skinConditionCategories.find((item) => item?.slug === categoryTitle)
+        const skinConditionId = categories.skinCondition.find((item) => item?.slug === categoryTitle)
         setSkinConditionFilters([skinConditionId?._id.toLowerCase().split(' ').join('-')!])
       }
 
 
       if(featured?.includes(categoryTitle)){
-        const featuredId = featuredCategories.find((item) => item?.slug === categoryTitle)
+        const featuredId = categories.featuredSkincare.find((item) => item?.slug === categoryTitle)
         setFeaturedFilters([featuredId?._id.toLowerCase().split(' ').join('-')!])
       }
     }
     
 
-  },[categoryTitle, skincareCategories, skinConditionCategories, skinConditionCategories])
+  },[categoryTitle, categories.skincare, categories.skinCondition, categories.featuredSkincare])
 
 
   // state used for applied filters to display and remove
@@ -169,11 +165,6 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
     fetchProducts()
   }, [])
 
-  // Fetch categories for each type of makeup
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkincareCategories);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategories);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategories)
-
   // function to display products based on filter Selection
   const filteredProducts: SkinCareProductType[] = filterOutProductsSkincare(
     appliedFilters, 
@@ -235,18 +226,18 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
 
       {/* Left side filter option */}
       <section className='flex justify-between gap-[24px] w-full'>
-        { skincareCategories.length === 0 && 
-          skinConditionCategories.length === 0 && 
-          featuredCategories.length === 0 && <SkeletonFilterOptions page={"skincare"}/>
+        { categories.skincare.length === 0 && 
+          categories.skinCondition.length === 0 && 
+          categories.featuredSkincare.length === 0 && <SkeletonFilterOptions page={"skincare"}/>
         }
         
-        { skincareCategories.length > 0 && 
-          skinConditionCategories.length > 0 && 
-          featuredCategories.length > 0 && (
+        { categories.skincare.length > 0 && 
+          categories.skinCondition.length > 0 && 
+          categories.featuredSkincare.length > 0 && (
             <SkincareFilterOptionsDesktop
-              skincareCategories={skincareCategories}
-              skinConditionCategories={skinConditionCategories}
-              featuredCategories={featuredCategories}
+              skincareCategories={categories.skincare}
+              skinConditionCategories={categories.skinCondition}
+              featuredCategories={categories.featuredSkincare}
               appliedFilters={appliedFilters}
               skincareCategoryFilters={skincareCategoryFilters}
               skinConditionFilters={skinConditionFilters}
@@ -262,9 +253,9 @@ const SkincareProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
 
         <div className={`${isMobileDropDown ? 'visible-container':'hidden-container'} absolute top-0 left-0 z-10 flex laptop-s:hidden w-full`}>
           <SkincareFilterOptionsMobile
-            skincareCategories={skincareCategories}
-            skinConditionCategories={skinConditionCategories}
-            featuredCategories={featuredCategories}
+            skincareCategories={categories.skincare}
+            skinConditionCategories={categories.skinCondition}
+            featuredCategories={categories.featuredSkincare}
             appliedFilters={appliedFilters}
             skincareCategoryFilters={skincareCategoryFilters}
             skinConditionFilters={skinConditionFilters}

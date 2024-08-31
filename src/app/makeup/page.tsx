@@ -9,6 +9,7 @@ import SkeletonMakeupPage from '@/components/Makeup/SkeletonMakeup/SkeletonMakeu
 import Wrapper from '@/components/Wrapper'
 import config from '@/config/config'
 import { useFetchCategories } from '@/hooks/useFetchCategories'
+import useCategoryDataStore from '@/stores/categoryDataStore'
 import { filterOutProductsMakeup } from '@/utils/helpers/filterOutProductsMakeup'
 import { CategoryType, MakeupProductType } from '@/utils/types'
 import { useSearchParams } from 'next/navigation'
@@ -18,17 +19,15 @@ import { MdOutlineArrowForwardIos, MdTune } from 'react-icons/md'
 
 const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
   
+  const { categories, fetchCategories } = useCategoryDataStore();
+ 
   const [products, setProducts] = useState<MakeupProductType[]>([])
 
   const [isMobileDropDown, setIsMobileDropDown] = useState(false)
   const [isOutOfStock, setIsOutOfStock] = useState(true)
   const [displaySortFilterValue, setDisplaySortFilterValue] = useState<string>('recommended')
   
-  // State variables for storing categories to display 
-  const [cheekCategories, setCheekCategories] = useState<CategoryType[]>([])
-  const [lipCategories, setLipsCategories] = useState<CategoryType[]>([])
-  const [eyeCategories, setEyesCategories] = useState<CategoryType[]>([])
-  const [featuredCategories, setFeaturedCategories] = useState<CategoryType[]>([])
+
   
   // State variables for storing selected filters for each category
   const [cheekFilters, setCheekFilters] = useState<string[]>([])
@@ -43,33 +42,33 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
 
     if(categoryTitle){
 
-      const cheek = cheekCategories.map((item) => item.slug)
-      const lips = lipCategories.map((item) => item.slug)
-      const eyes = eyeCategories.map((item) => item.slug)
-      const featuredMakeup = featuredCategories.map((item) => item.slug)
+      const cheek = categories.cheek.map((item) => item.slug)
+      const lips = categories.lips.map((item) => item.slug)
+      const eyes = categories.eyes.map((item) => item.slug)
+      const featuredMakeup = categories.featuredMakeup.map((item) => item.slug)
       
       if(cheek?.includes(categoryTitle)){
-        const cheekId = cheekCategories.find((item) => item?.slug === categoryTitle)       
+        const cheekId = categories.cheek.find((item) => item?.slug === categoryTitle)       
         setCheekFilters([cheekId?._id.toLowerCase().split(' ').join('-')!])
       }
       
       if(lips?.includes(categoryTitle)){
-        const lipsId = lipCategories.find((item) => item?.slug === categoryTitle)
+        const lipsId = categories.lips.find((item) => item?.slug === categoryTitle)
         setLipsFilters([lipsId?._id.toLowerCase().split(' ').join('-')!])
       }
 
       if(eyes?.includes(categoryTitle)){
-        const eyesId = eyeCategories.find((item) => item?.slug === categoryTitle)
+        const eyesId = categories.eyes.find((item) => item?.slug === categoryTitle)
         setEyesFilters([eyesId?._id.toLowerCase().split(' ').join('-')!])
       }
 
       if(featuredMakeup?.includes(categoryTitle)){
-        const featuredId = featuredCategories.find((item) => item?.slug === categoryTitle)
+        const featuredId = categories.featuredMakeup.find((item) => item?.slug === categoryTitle)
         setFeaturedFilters([featuredId?._id.toLowerCase().split(' ').join('-')!])
       }
     }
     
-  },[categoryTitle, cheekCategories, lipCategories, eyeCategories, featuredCategories])
+  },[categoryTitle, categories.cheek, categories.lips, categories.eyes, categories.featuredMakeup])
 
   // state used for applied filters to display and remove
   const originalCheekFilters = cheekFilters;
@@ -185,13 +184,7 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
     }
     fetchProducts()
   }, [])
-
-  // Fetch categories for each type of makeup
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipsCategories);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyesCategories);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategories)
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategories)
-  
+ 
   // function to display products based on filter Selection
   const filteredProducts: MakeupProductType[] = filterOutProductsMakeup(
     appliedFilters, 
@@ -255,21 +248,21 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
       {/* Left side filter option */}
       <section className='flex justify-between gap-[24px] w-full'>
 
-        { cheekCategories.length === 0 && 
-          lipCategories.length === 0 && 
-          eyeCategories.length === 0 && 
-          featuredCategories.length === 0 && <SkeletonFilterOptions page={"makeup"}/>
+        { categories.cheek.length === 0 && 
+          categories.lips.length === 0 && 
+          categories.eyes.length === 0 && 
+          categories.featuredMakeup.length === 0 && <SkeletonFilterOptions page={"makeup"}/>
         }
 
-        { cheekCategories.length > 0 && 
-          lipCategories.length > 0 && 
-          eyeCategories.length > 0 && 
-          featuredCategories.length > 0 && (
+        { categories.cheek.length > 0 && 
+          categories.lips.length > 0 && 
+          categories.eyes.length > 0 && 
+          categories.featuredMakeup.length > 0 && (
           <FilterOptionsDesktop
-            cheekCategories={cheekCategories}
-            lipCategories={lipCategories}
-            eyeCategories={eyeCategories}
-            featuredCategories={featuredCategories}
+            cheekCategories={categories.cheek}
+            lipCategories={categories.lips}
+            eyeCategories={categories.eyes}
+            featuredCategories={categories.featuredMakeup}
             appliedFilters={appliedFilters}
             cheekFilters={cheekFilters}
             lipsFilters={lipsFilters}
@@ -285,10 +278,10 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
         
         <div className={`${isMobileDropDown ? 'visible-container':'hidden-container'} absolute top-0 left-0 z-10 flex laptop-s:hidden w-full`}>
           <MakeupFilterOptionsMobile
-            cheekCategories={cheekCategories}
-            lipCategories={lipCategories}
-            eyeCategories={eyeCategories}
-            featuredCategories={featuredCategories}
+            cheekCategories={categories.cheek}
+            lipCategories={categories.lips}
+            eyeCategories={categories.eyes}
+            featuredCategories={categories.featuredMakeup}
             appliedFilters={appliedFilters}
             cheekFilters={cheekFilters}
             lipsFilters={lipsFilters}

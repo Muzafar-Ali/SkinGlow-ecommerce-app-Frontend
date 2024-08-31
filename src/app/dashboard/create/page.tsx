@@ -1,22 +1,16 @@
 'use client'
 import config from '@/config/config';
-import { useFetchCategories } from '@/hooks/useFetchCategories';
+import useCategoryDataStore from '@/stores/categoryDataStore';
 import { appendFormData } from '@/utils/helpers/appendFormData';
-import { CategoryType } from '@/utils/types';
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 
 const CreateMakeup = () => {
-  const BASEURL = process.env.NEXT_PUBLIC_BASEURI;
   
-  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);  
-  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
-  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { categories, fetchCategories } = useCategoryDataStore();
+  const [ loading, setLoading ] = useState(false);
   
-
   const {
     register,
     handleSubmit,
@@ -44,11 +38,6 @@ const CreateMakeup = () => {
       console.log(error);
     }
   };
-
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyeCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategory)
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategory)
   
   return (
     <>
@@ -125,7 +114,7 @@ const CreateMakeup = () => {
             className='border rounded-md px-2 py-2'
           >
             <option value="">Select a category</option>
-            {cheekCategory?.map((category: any) => (
+            {categories.cheek?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
@@ -140,7 +129,7 @@ const CreateMakeup = () => {
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
-            {lipCategory?.map((category: any) => (
+            {categories.lips?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
@@ -155,7 +144,7 @@ const CreateMakeup = () => {
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
-            {eyeCategory?.map((category: any) => (
+            {categories.eyes?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
@@ -170,7 +159,7 @@ const CreateMakeup = () => {
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
-            {featuredCategory?.map((category: any) => (
+            {categories.featuredMakeup?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>

@@ -5,7 +5,7 @@ import { MdOutlineSearch } from "react-icons/md"
 import { useState } from "react"
 import { GrLanguage } from "react-icons/gr"
 import { PiShoppingCartSimpleBold } from "react-icons/pi"
-import { useCart } from "@/store/store"
+import { useCartItems } from "@/stores/cartItemsStore"
 import Logo from "./Logo"
 import Link from "next/link"
 import MobileMenu from "./NavbarMenu/MenuMobile/MobileMenu"
@@ -13,7 +13,7 @@ import Search from "../Search/Search"
 
 const NavbarMobile = () => {
 
-  const itemsCart = useCart((state) => state.cartItems);
+  const itemsCart = useCartItems((state) => state.cartItems);
   const totalCartItems = itemsCart.reduce((total, item) => total + item.quantity, 0) 
 
   const [isDropDown, setIsDropDown] = useState(false)

@@ -2,7 +2,7 @@ import { CombinedSingleProductType } from "@/utils/types"
 import { useState } from "react";
 import { TbCurrencyDollar } from "react-icons/tb";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
-import { useCart } from "@/store/store";
+import { useCartItems } from "@/stores/cartItemsStore";
 import Image from "next/image"
 import SvgSeparator from "../SVG/Separator";
 import SvgGift from "../SVG/Gift";
@@ -10,7 +10,7 @@ import SvgAdvice from "../SVG/Advice";
 
 const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}) => {
 
-  const addtoCart = useCart((state) => state.addToCart);
+  const addtoCart = useCartItems((state) => state.addToCart);
 
   const [largeImage, setLargeImage] = useState<string>();
   const [isSelected, setIsSelected] = useState<string>();

@@ -21,12 +21,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log('process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID', )
+  
   return (
     <html lang="en">
       <body className={inter.className}>
         <NavbarDesktop />
-        <NavbarMobile/>
+        {/* <NavbarMobile/> */}
         {children}
         <Footer />
         <OnlineChat/>

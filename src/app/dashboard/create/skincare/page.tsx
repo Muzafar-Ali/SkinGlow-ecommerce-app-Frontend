@@ -1,8 +1,7 @@
 'use client'
 import config from '@/config/config';
-import { useFetchCategories } from '@/hooks/useFetchCategories';
+import useCategoryDataStore from '@/stores/categoryDataStore';
 import { appendFormData } from '@/utils/helpers/appendFormData';
-import { CategoryType } from '@/utils/types';
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -10,9 +9,7 @@ import { useForm } from 'react-hook-form';
 
 const CreateSkincareProduct = () => {
  
-  const [skinCareCategory, setSkinCareCategory] = useState<CategoryType[]>([]);
-  const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);  
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
+  const { categories, fetchCategories } = useCategoryDataStore();
   const [loading, setLoading] = useState(false);
   
   const {
@@ -43,9 +40,6 @@ const CreateSkincareProduct = () => {
     }
   };
 
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkinCareCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory)
 
   return (
     <>
@@ -122,7 +116,7 @@ const CreateSkincareProduct = () => {
             className='border rounded-md px-2 py-2'
           >
             <option value="">Select a category</option>
-            {skinCareCategory?.map((category: any) => (
+            {categories.skincare?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
@@ -137,7 +131,7 @@ const CreateSkincareProduct = () => {
             className='border rounded-md px-2 py-2'
             >
             <option value="">Select a category</option>
-            {skinConditionCategory?.map((category: any) => (
+            {categories.skinCondition?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>
@@ -152,7 +146,7 @@ const CreateSkincareProduct = () => {
             className='border rounded-md px-2 py-2'
           >
             <option value="">Select a category</option>
-            {featuredCategory?.map((category: any) => (
+            {categories.featuredSkincare?.map((category: any) => (
               <option key={category?._id} value={category?._id}>{category?.name}</option>
             ))}
           </select>

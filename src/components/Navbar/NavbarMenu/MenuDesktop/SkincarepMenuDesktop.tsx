@@ -12,37 +12,23 @@ type SkincareDesktopMenuProps = {
   index: number;
   menuCategory: string;
   handleLinkClick: () => void;
+  featuredCategorySkincare: CategoryType[];
+  skinCareCategory: CategoryType[];
+  skinConditionCategory: CategoryType[];
+  collection: SkinCareProductType[];
 }
 
-const SkincarepMenuDesktop = ( { dropdownStates, index, menuCategory,  handleLinkClick }: SkincareDesktopMenuProps ) => {
+const SkincarepMenuDesktop = ( { 
+  dropdownStates, 
+  index, 
+  menuCategory,  
+  handleLinkClick,
+  featuredCategorySkincare,
+  skinCareCategory,
+  skinConditionCategory,
+  collection, 
+}: SkincareDesktopMenuProps ) => {
 
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
-  const [skinCareCategory, setSkinCareCategory] = useState<CategoryType[]>([]);
-  const [skinConditionCategory, setSkinConditionCategory] = useState<CategoryType[]>([]);
-  const [collection, setCollection] = useState<SkinCareProductType[]>([]);
-  
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincare/all`, setSkinCareCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/skincondition/all`, setSkinConditionCategory);
-  useFetchCategories(`${config.baseUri}/v1/skincare/category/featured/all`, setFeaturedCategory)
- 
-  useEffect(() => {
-    const getCollection = async () => {
-      try {
-        const response = await fetch(`${config.baseUri}/v1/skincare/collection`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await response.json();
-        setCollection(data.products);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getCollection();
-  }, []);
-  
   return (
     <div className={cn(
       dropdownStates[index] && menuCategory === "skincare" ? "block opacity-100 z-10 max-h-[365px] overflow-hidden":"block opacity-0 -z-10 overflow-hidden max-h-0",
@@ -52,7 +38,7 @@ const SkincarepMenuDesktop = ( { dropdownStates, index, menuCategory,  handleLin
     >
       {/* trending */}
       <div className='flex flex-col gap-1 capitalize'>
-        {featuredCategory?.map((items) => (
+        {featuredCategorySkincare?.map((items) => (
           <Link
             href={`/skincare/category/${items.slug}`}
             key={items._id}

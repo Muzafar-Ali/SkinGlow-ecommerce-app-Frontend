@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { AiOutlineCaretRight } from 'react-icons/ai';
 import Link from 'next/link';
 import config from '@/config/config';
+import useCategoryDataStore from '@/stores/categoryDataStore';
 
 type MakeUpMobileMenuProps = {
   isLips: boolean;
@@ -29,15 +30,7 @@ setIsEye,
 isEye,
 }: MakeUpMobileMenuProps) => {
 
-  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);
-  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
-  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
-  
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyeCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategory)
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategory)
+  const { categories } = useCategoryDataStore();
   
   return (
     <div className={`${isSelected?.includes(('women makeup')) ? 'inline-block':'hidden'}`}>
@@ -60,7 +53,7 @@ isEye,
           <AiOutlineCaretRight className={`${isCheek ? "rotate-90": ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { cheekCategory?.map((item, index) => (
+          { categories.cheek?.map((item, index) => (
             <div 
             key={index}
             onClick={() => setIsDropDown(false)}
@@ -81,7 +74,7 @@ isEye,
           <AiOutlineCaretRight className={`${isLips? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { lipCategory?.map((item, index) => (
+          { categories.lips?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)}
@@ -102,7 +95,7 @@ isEye,
           <AiOutlineCaretRight className={`${isEye ? "rotate-90" : ""} w-3 h-3 bg-white transition-transform duration-300 ease-in-out`}/>
         </div> 
         <div>
-          { eyeCategory?.map((item, index) => (
+          { categories.eyes?.map((item, index) => (
             <div 
               key={index}
               onClick={() => setIsDropDown(false)}
@@ -117,7 +110,7 @@ isEye,
       
       {/* featured categories starts */}
       <div>
-        { featuredCategory?.map((item, index) => (
+        { categories.featuredMakeup?.map((item, index) => (
           <div 
           key={index}
             onClick={() => setIsDropDown(false)}

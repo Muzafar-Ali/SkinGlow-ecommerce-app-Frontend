@@ -12,19 +12,22 @@ interface MakeupDesktopMenuProps {
   index: number;
   menuCategory: string;
   handleLinkClick: () => void;
+  featuredCategoryMakeup: CategoryType[];
+  cheekCategory: CategoryType[];
+  eyeCategory: CategoryType[];
+  lipsCategory: CategoryType[];
+  
 }
 
-const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkClick }: MakeupDesktopMenuProps) => {
-
-  const [cheekCategory, setCheekCategory] = useState<CategoryType[]>([]);
-  const [eyeCategory, setEyeCategory] = useState<CategoryType[]>([]);
-  const [lipCategory, setLipCategory] = useState<CategoryType[]>([]);
-  const [featuredCategory, setFeaturedCategory] = useState<CategoryType[]>([]);
-  
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/lips/all`, setLipCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/eyes/all`, setEyeCategory);
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/cheek/all`, setCheekCategory)
-  useFetchCategories(`${config.baseUri}/v1/makeup/category/featured/all`, setFeaturedCategory)
+const MakeupMenuDesktop = ({ 
+  dropdownStates, 
+  index, menuCategory,  
+  handleLinkClick,
+  featuredCategoryMakeup,
+  cheekCategory,
+  eyeCategory,
+  lipsCategory,
+}: MakeupDesktopMenuProps) => {
 
   return (
     <div className={cn(
@@ -34,7 +37,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
     >
       {/* featured cat */}
       <div className='flex flex-col gap-1 capitalize'>
-        {featuredCategory?.map((items) => (
+        {featuredCategoryMakeup?.map((items) => (
           <Link
             href={`/makeup/category/${items.slug}`}
             key={items._id}
@@ -76,7 +79,7 @@ const MakeupMenuDesktop = ({ dropdownStates, index, menuCategory,  handleLinkCli
       {/* lips cat */}
       <div className='flex flex-col gap-1 capitalize'>
         <h2 className='text-neutral-950 text-base font-bold capitalize leading-snug mb-2'>Lips</h2>
-        {lipCategory.map((items) => (
+        {lipsCategory.map((items) => (
           <Link 
             href={`/makeup/category/${items.slug}`}
             key={items._id}
