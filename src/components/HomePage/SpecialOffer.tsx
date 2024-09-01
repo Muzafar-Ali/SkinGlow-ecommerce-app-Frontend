@@ -52,7 +52,9 @@ const SpecialOffer = () => {
           <p className="text-brand text-sm laptop-s:text-base font-semibold laptop-s:font-bold capitalize laptop-s:leading-snug">
             visit your local skinGlow branches to find out more about our special offers in make up and skincare products. 
           </p>
-          <button className="w-[183px] h-12 px-4 py-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out ml-auto">
+          <button
+            aria-label="Find branches"  
+            className="w-[183px] h-12 px-4 py-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out ml-auto">
             <Link href={'/branches'} className="text-white text-base font-normal capitalize leading-7">find branches</Link>
           </button>
         </div>

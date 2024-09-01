@@ -6,13 +6,21 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }: any) => {
     return (
       <div >
         <div className="w-6 tablet-m:w-10 h-6 tablet-m:h-10 p-1 bg-white border border-stone-300 justify-center items-center inline-flex  absolute top-[50%]  left-[6%]">
-          <button className="w-4 tablet-m:w-8 h-4 tablet-m:h-8 justify-center items-center flex" onClick={() => previous()}>
+          <button 
+            aria-label="Previous slide"
+            onClick={() => previous()}
+            className="w-4 tablet-m:w-8 h-4 tablet-m:h-8 justify-center items-center flex" 
+          >
             <AiOutlineCaretRight className="w-3 tablet-m:w-4 h-3 tablet-m:h-4 rotate-180 bg-transparent" />
           </button>
         </div>
   
         <div className="w-6 tablet-m:w-10 h-6 tablet-m:h-10 p-1 bg-white border border-stone-300 justify-center items-center inline-flex absolute top-[50%] right-[6%]">
-          <button className="w-4 tablet-m:w-8 h-4 tablet-m:h-8 justify-center items-center flex" onClick={() => next()}>
+          <button
+            aria-label="Next slide" 
+            onClick={() => next()}
+            className="w-4 tablet-m:w-8 h-4 tablet-m:h-8 justify-center items-center flex" 
+          >
             <AiOutlineCaretRight className="w-3 tablet-m:w-4 h-3 tablet-m:h-4 bg-transparent" />
           </button>  
         </div>

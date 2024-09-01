@@ -1,6 +1,5 @@
-'use client'
-import React, { useState } from 'react'
-import Wrapper from './Wrapper'
+"use client"
+import { useState } from 'react'
 import { MdOutlineCall, MdOutlineLocationOn } from 'react-icons/md'
 import { FaFacebookF, FaRedditAlien, FaTiktok } from 'react-icons/fa'
 import { SiPinterest } from 'react-icons/si'
@@ -13,7 +12,7 @@ import SvgWheat from './SVG/Wheat'
 import SvgRecycle from './SVG/Recycle'
 
 const Footer = () => {
-  const [isActive, setIsActive] = useState(false)
+  const [isAggreedToReceiveEmail, setIsAggreedToReceiveEmail] = useState(false)
   
   return (
     <div className='max-w-[1520px] mx-auto mt-[50px] laptop-s:mt-[32px] '>
@@ -79,10 +78,11 @@ const Footer = () => {
             <div className='relative inline-flex gap-2 tablet-m:gap-4 max-laptop-s:mt-[16px]'>
               <input 
                 type="text" 
-                name="" 
-                id="" 
-                className={`${isActive ?'bg-white ring-inset ring-1 ring-black ':''} w-4 h-4 rounded-sm border-2 hover:border-[3px] border-white cursor-pointer bg-transparent`}
-                onClick={() => setIsActive((prev) => !prev)}
+                name="show_consent_to_receive_email"  
+                id="email-consent" 
+                aria-label="Show consent to receive email"
+                className={`${isAggreedToReceiveEmail ?'bg-white ring-inset ring-1 ring-black ':''} w-4 h-4 rounded-sm border-2 hover:border-[3px] border-white cursor-pointer bg-transparent`}
+                onClick={() => setIsAggreedToReceiveEmail((prev) => !prev)}
               />
               <p className='text-white text-xs tablet-m:text-sm font-normal capitalize leading tablet-m:leading-[25.20px]'>By submitting your email, you agree to receive advertising emails from Skinglow. Please review our Privacy Policy, which includes our Financial Incentive Notice for CA residents.</p>
             </div>
@@ -111,37 +111,24 @@ const Footer = () => {
 
         {/* social media icons */}
         <div className='inline-flex items-center gap-5 bg-stone-900 max-tablet-m:mt-4'>
-          <Link href={'#'}>
-            <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-              <BsInstagram className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-            </button>
+          <Link href={'/'}>
+            <BsInstagram className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
           </Link>
-            <Link href={'#'}>
-              <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-                <FaFacebookF className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-              </button>
-            </Link>
-            <Link href={'#'}>
-              <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-                <FaXTwitter className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-              </button>
-            </Link>
-            <Link href={'#'}>
-              <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-                <SiPinterest className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-              </button>
-            </Link>
-            <Link href={'#'}>
-              <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-                <FaRedditAlien className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-              </button>
-            </Link>
-            <Link href={'#'}>
-              <button className='w-6 laptop-s:w-10 h-6 laptop-s:h-10 inline-flex justify-center items-center'>
-                <FaTiktok className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
-              </button>
-
-            </Link>
+          <Link href={'/'}>
+            <FaFacebookF className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
+          </Link>
+          <Link href={'/'}>
+            <FaXTwitter className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
+          </Link>
+          <Link href={'/'}>
+            <SiPinterest className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
+          </Link>
+          <Link href={'/'}>
+            <FaRedditAlien className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
+          </Link>
+          <Link href={'/'}>
+            <FaTiktok className="w-6 h-6 text-[#fa58a6] cursor-pointer hover:text-pink-300"/>
+          </Link>
         </div>
       </section>
 
