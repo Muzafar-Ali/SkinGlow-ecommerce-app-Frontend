@@ -40,32 +40,6 @@ const MenuDesktop = () => {
     
   }, []);
 
-
-  // // Check for any loading or error states
-  // if (
-  //   lipsLoading ||
-  //   eyeLoading ||
-  //   cheekLoading ||
-  //   featuredMakeupLoading ||
-  //   skinCareLoading ||
-  //   skinConditionLoading ||
-  //   featuredSkincareLoading
-  // ) {
-  //   return <div>Loading...</div>;
-  // }
-  
-  // if (
-  //   lipsError ||
-  //   eyeError ||
-  //   cheekError ||
-  //   featuredMakeupError ||
-  //   skinCareError ||
-  //   skinConditionError ||
-  //   featuredSkincareError
-  // ) {
-  //   return <div>Error: {lipsError || eyeError || cheekError || featuredMakeupError || skinCareError || skinConditionError || featuredSkincareError}</div>;
-  // }
-
   const handleMouseEnter = (index: number) => {
     const newDropdownStates = [...dropdownStates];
     newDropdownStates[index] = true;
@@ -102,7 +76,7 @@ const MenuDesktop = () => {
             menuCategory={items.slug}
             handleLinkClick={handleLinkClick}
             featuredCategorySkincare={categories.featuredSkincare}
-            skinCareCategory={categories.lips}
+            skinCareCategory={categories.skincare}
             skinConditionCategory={categories.skinCondition}
             collection={collection}
           />

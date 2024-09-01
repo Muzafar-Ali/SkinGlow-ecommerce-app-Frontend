@@ -58,7 +58,6 @@ const Dashboard = () => {
 
   const handleChange = (value: string) => {
     const product = value.toLowerCase();
-    console.log('product selected = ',product);
     
     if(product === "makeup"){
       router.push("/dashboard/create/makeup")

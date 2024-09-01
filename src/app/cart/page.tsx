@@ -37,7 +37,6 @@ const Cart = () => {
           totalAmount: totalAmount,  
           orderItems: cartItems,
         });
-        console.log('response', response);
         
         if (response && response.stripeSession && response.stripeSession.id) {
           await stripe.redirectToCheckout({
