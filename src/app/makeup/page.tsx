@@ -211,8 +211,8 @@ const MakeupProductPage = ( { categoryTitle }: {categoryTitle?: string} ) => {
           <span className="text-zinc-600 text-sm laptop-s:text-xl font-semibold laptop-s:font-bold leading-tight tablet:leading-7">({filteredProducts?.length})</span>
         </div>
 
-          {/* visible on mobile screen only, applied filter  */}
-          <div className='w-full laptop-s:hidden'>
+        {/* visible on mobile screen only, applied filter  */}
+        <div className='w-full laptop-s:hidden'>
           <AppliedFiltersDisplay
             appliedFilters={appliedFilters}
             clearFilters={clearFilters}
