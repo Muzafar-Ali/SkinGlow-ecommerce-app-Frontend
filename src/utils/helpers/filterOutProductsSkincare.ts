@@ -92,11 +92,11 @@ export const filterOutProductsSkincare = (
     });
     
 
-    if (!isOutOfStock) {
-        filteredProducts = filteredProducts.filter((item: any) => {
-        return !item.attributes.outofstock; 
-      });
-    }
+    // if (!isOutOfStock) {
+    //     filteredProducts = filteredProducts.filter((item: any) => {
+    //     return !item.attributes?.outofstock; 
+    //   });
+    // }
   
     // Sort products based on price if displaySortFilterValue is selected
     if (displaySortFilterValue === 'price high to low') {
