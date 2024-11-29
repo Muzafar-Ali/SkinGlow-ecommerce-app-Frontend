@@ -7,6 +7,7 @@ import Image from "next/image"
 import SvgSeparator from "../SVG/Separator";
 import SvgGift from "../SVG/Gift";
 import SvgAdvice from "../SVG/Advice";
+import { Bounce, toast } from "react-toastify";
 
 const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}) => {
 
@@ -78,7 +79,20 @@ const ProductDisplayMobile = ({ product }: { product: CombinedSingleProductType}
       <div className="flex flex-col items-center">
         {/* Add to cart button starts */}
         <button 
-          onClick={() => addtoCart({...product, quantity: 1, itemPrice: product?.price})}
+          onClick={() => {
+            addtoCart({...product, quantity: 1, itemPrice: product?.price});
+            toast('🛒 Item added to cart!', {
+              position: "bottom-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              })
+          }}
           className="w-full h-[45px] px-4 py-2 mt-2 bg-pink-800 justify-center items-center gap-2 inline-flex hover:bg-red-950 transition-all duration-200 ease-in-out"
           >
           <div className="w-8 h-8 relative text-white flex items-center justify-center">
