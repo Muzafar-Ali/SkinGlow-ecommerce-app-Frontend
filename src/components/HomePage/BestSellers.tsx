@@ -15,7 +15,7 @@ import "react-multi-carousel/lib/styles.css";
 const BestSellers = () => {
 
   const [bestSeller, setBestSeller] = useState<BestSellerType[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
   const responsive = {
     laptopLarge: {
