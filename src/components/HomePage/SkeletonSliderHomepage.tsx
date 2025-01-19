@@ -48,7 +48,7 @@ const SkeletonSliderHomePage = () => {
       {currentArray.map((item) => (
         <div key={item} className="space-y-2 flex flex-col relative">
           <Skeleton className="h-[250px] tablet-m:h-[384px] w-[120px] mobile-m:w-[150px] mobile-l:w-[160px] tablet-m:w-[200px] laptop-m:w-[250px] laptop-l:w-[300px] rounded-none px-5" >
-          <div className="h-full w-full rounded-none mt-20 text-xl text-neutral-900 tracking-wide">Data will take few seconds to reflect on first load <br/><br/> as we are using free Backend service of render.com.
+          <div className="h-full w-full rounded-none mt-5 laptop-s:mt-20 text-sm tablet-s:text-base laptop-s:text-xl  text-neutral-900 tracking-wide">Data will take few seconds to reflect on first load <br/><br/> as we are using free Backend service of render.com.
           </div>
           </Skeleton>
           <Skeleton className="h-4 w-3/4" />
