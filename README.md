@@ -30,6 +30,6 @@ The app is deployed with:
 * Cloudinary
 * Stripe
 * Nodemon
-* Bcrypt.js & Bcrypt
+* Bcrypt
 * Multer 
 * Zod
